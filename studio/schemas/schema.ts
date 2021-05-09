@@ -7,6 +7,8 @@ import schemaTypes from "all:part:@sanity/base/schema-type";
 // document schemas
 import post from "./documents/post";
 import siteSettings from "./documents/siteSettings";
+import source from "./documents/source";
+import tag from "./documents/tag";
 
 // Object types
 import bodyPortableText from "./objects/bodyPortableText";
@@ -24,6 +26,8 @@ export default createSchema({
     // in the studio.
     siteSettings,
     post,
+    source,
+    tag,
     mainImage,
     bodyPortableText,
     excerptPortableText,

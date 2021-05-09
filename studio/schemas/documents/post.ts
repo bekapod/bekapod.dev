@@ -39,6 +39,32 @@ export default {
       type: "bodyPortableText",
       title: "Body",
     },
+    {
+      name: "sources",
+      type: "array",
+      title: "Sources",
+      of: [
+        {
+          type: "reference",
+          to: {
+            type: "source",
+          },
+        },
+      ],
+    },
+    {
+      name: "tags",
+      type: "array",
+      title: "Tags",
+      of: [
+        {
+          type: "reference",
+          to: {
+            type: "tag",
+          },
+        },
+      ],
+    },
   ],
   orderings: [
     {
@@ -78,18 +104,15 @@ export default {
     },
     prepare({
       title = "No title",
-      publishedAt,
       slug,
     }: {
       title?: string;
-      publishedAt: string;
       slug: Slug;
     }): PreviewValue {
-      const dateSegment = format(publishedAt, "YYYY/MM");
-      const path = `/${dateSegment}/${slug.current}/`;
+      const path = `/post/${slug.current}/`;
       return {
         title,
-        subtitle: publishedAt ? path : "Missing publishing date",
+        subtitle: path,
       };
     },
   },
