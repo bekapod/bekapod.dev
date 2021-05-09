@@ -1,9 +1,9 @@
 import S from "@sanity/desk-tool/structure-builder";
-import { MdSettings, MdPerson } from "react-icons/md";
+import { MdSettings } from "react-icons/md";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const hiddenDocTypes = (listItem: any) =>
-  !["category", "author", "post", "siteSettings"].includes(listItem.getId());
+  !["post", "siteSettings"].includes(listItem.getId());
 
 export default (): unknown =>
   S.list()
@@ -22,15 +22,6 @@ export default (): unknown =>
         .title("Blog posts")
         .schemaType("post")
         .child(S.documentTypeList("post").title("Blog posts")),
-      S.listItem()
-        .title("Authors")
-        .icon(MdPerson)
-        .schemaType("author")
-        .child(S.documentTypeList("author").title("Authors")),
-      S.listItem()
-        .title("Categories")
-        .schemaType("category")
-        .child(S.documentTypeList("category").title("Categories")),
       // This returns an array of all the document types
       // defined in schema.js. We filter out those that we have
       // defined the structure above
