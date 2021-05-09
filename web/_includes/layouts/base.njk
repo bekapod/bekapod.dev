@@ -10,11 +10,11 @@
       {% include "style.css" %}
     {% endset %}
     <style>
-      {{ css | cssmin | safe }}
+      {{ css | postcss | safe }}
     </style>
   </head>
   <body>
-    <header>
+    <header className="bg-white">
       <h1 class="home"><a href="{{ '/' | url }}">{{ metadata.title }}</a></h1>
       <ul class="nav">
         {%- for nav in collections.nav | reverse -%}

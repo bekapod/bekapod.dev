@@ -1,25 +1,33 @@
 const { DateTime } = require("luxon");
-const util = require('util')
+const util = require("util");
+const postcss = require("postcss");
 const CleanCSS = require("clean-css");
 
-module.exports = function(eleventyConfig) {
+const postcssPlugins = [require(`tailwindcss`)("./tailwind.config.js"), require(`autoprefixer`)];
 
+module.exports = function (eleventyConfig) {
   // https://www.11ty.io/docs/quicktips/inline-css/
-  eleventyConfig.addFilter("cssmin", function(code) {
-    return new CleanCSS({}).minify(code).styles;
+  eleventyConfig.addNunjucksAsyncFilter("postcss", async function (code, callback) {
+    try {
+      const result = await postcss(...postcssPlugins).process(code, { from: undefined });
+      const minified = new CleanCSS({}).minify(result.css);
+      callback(null, minified.styles);
+    } catch (error) {
+      callback(error, null);
+    }
   });
 
-  eleventyConfig.addFilter("debug", function(value) {
-    return util.inspect(value, {compact: false})
-   });
+  eleventyConfig.addFilter("debug", function (value) {
+    return util.inspect(value, { compact: false });
+  });
 
-   eleventyConfig.addFilter("readableDate", dateObj => {
-    return new Date(dateObj).toDateString()
+  eleventyConfig.addFilter("readableDate", (dateObj) => {
+    return new Date(dateObj).toDateString();
   });
 
   // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
-  eleventyConfig.addFilter('htmlDateString', (dateObj) => {
-    return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat('yyyy-LL-dd');
+  eleventyConfig.addFilter("htmlDateString", (dateObj) => {
+    return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("yyyy-LL-dd");
   });
 
   let markdownIt = require("markdown-it");
@@ -27,29 +35,22 @@ module.exports = function(eleventyConfig) {
   let options = {
     html: true,
     breaks: true,
-    linkify: true
+    linkify: true,
   };
   let opts = {
     permalink: true,
     permalinkClass: "direct-link",
-    permalinkSymbol: "#"
+    permalinkSymbol: "#",
   };
 
-  eleventyConfig.setLibrary("md", markdownIt(options)
-    .use(markdownItAnchor, opts)
-  );
+  eleventyConfig.setLibrary("md", markdownIt(options).use(markdownItAnchor, opts));
 
-  eleventyConfig.addFilter("markdownify", function(value) {
-    const md = new markdownIt(options)
-    return md.render(value)
-  })
+  eleventyConfig.addFilter("markdownify", function (value) {
+    const md = new markdownIt(options);
+    return md.render(value);
+  });
   return {
-    templateFormats: [
-      "md",
-      "njk",
-      "html",
-      "liquid"
-    ],
+    templateFormats: ["md", "njk", "html", "liquid"],
 
     // If your site lives in a different subdirectory, change this.
     // Leading or trailing slashes are all normalized away, so don’t worry about it.
@@ -65,7 +66,7 @@ module.exports = function(eleventyConfig) {
       input: ".",
       includes: "_includes",
       data: "_data",
-      output: "_site"
-    }
+      output: "_site",
+    },
   };
-}
+};
