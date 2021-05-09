@@ -4,7 +4,7 @@ import { PreviewValue, Slug } from "@sanity/types";
 export default {
   name: "post",
   type: "document",
-  title: "Blog Post",
+  title: "Post",
   fields: [
     {
       name: "title",
@@ -16,8 +16,6 @@ export default {
       name: "slug",
       type: "slug",
       title: "Slug",
-      description:
-        "Some frontends will require a slug to be set to be able to show the post",
       options: {
         source: "title",
         maxLength: 96,
@@ -28,11 +26,6 @@ export default {
       type: "datetime",
       title: "Published at",
       description: "This can be used to schedule post for publishing",
-    },
-    {
-      name: "mainImage",
-      type: "mainImage",
-      title: "Main image",
     },
     {
       name: "excerpt",
@@ -82,24 +75,20 @@ export default {
       title: "title",
       publishedAt: "publishedAt",
       slug: "slug",
-      media: "mainImage",
     },
     prepare({
       title = "No title",
       publishedAt,
       slug,
-      media,
     }: {
       title?: string;
       publishedAt: string;
       slug: Slug;
-      media: string;
     }): PreviewValue {
       const dateSegment = format(publishedAt, "YYYY/MM");
       const path = `/${dateSegment}/${slug.current}/`;
       return {
         title,
-        media,
         subtitle: publishedAt ? path : "Missing publishing date",
       };
     },

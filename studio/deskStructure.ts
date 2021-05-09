@@ -19,9 +19,9 @@ export default (): unknown =>
             .documentId("siteSettings"),
         ),
       S.listItem()
-        .title("Blog posts")
+        .title("Posts")
         .schemaType("post")
-        .child(S.documentTypeList("post").title("Blog posts")),
+        .child(S.documentTypeList("post").title("Posts")),
       // This returns an array of all the document types
       // defined in schema.js. We filter out those that we have
       // defined the structure above
