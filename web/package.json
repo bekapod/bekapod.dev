@@ -7,6 +7,7 @@
     "build": "npx eleventy",
     "dev": "npx eleventy --watch --serve",
     "now-build": "npm run build",
+    "lint": "eslint .",
     "debug": "DEBUG=* npx eleventy"
   },
   "keywords": [],
@@ -17,6 +18,7 @@
     "@11ty/eleventy-plugin-syntaxhighlight": "^2.0.3",
     "@sanity/block-content-to-markdown": "0.0.5",
     "@sanity/client": "^2.0.0",
+    "@sanity/image-url": "^0.140.22",
     "clean-css": "^4.2.1",
     "dotenv": "^8.2.0",
     "groq": "^0.142.0",

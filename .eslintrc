@@ -1,0 +1,76 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "reportUnusedDisableDirectives": true,
+  "extends": [
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:prettier/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "env": {
+    "jest": true
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "import",
+    "jsx-a11y"
+  ],
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "never",
+      {
+        "json": "always",
+        "svg": "always",
+        "mock": "always"
+      }
+    ],
+    "import/no-unresolved": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "settings": {
+    "import/parser": "@typescript-eslint/parser",
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".ts",
+          ".tsx"
+        ]
+      }
+    }
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "extends": [
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "rules": {
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "vars": "all",
+            "args": "after-used",
+            "ignoreRestSiblings": true,
+            "argsIgnorePattern": "^_"
+          }
+        ],
+        "@typescript-eslint/no-extra-semi": "off" // conflicts with prettier
+      }
+    }
+  ]
+}
