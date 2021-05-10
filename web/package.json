@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "NODE_ENV=production npx eleventy",
-    "dev": "npx eleventy --watch --serve",
+    "build": "NODE_ENV=production run-s build:*",
+    "dev": "run-p dev:css dev:html",
+    "dev:css": "postcss _includes/style.css -o _site/style.css --watch --verbose",
+    "dev:html": "npx eleventy --watch --serve",
+    "build:css": "postcss _includes/style.css -o _site/style.css",
+    "build:html": "npx eleventy",
     "now-build": "NODE_ENV=production npm run build",
     "lint": "eslint .",
     "debug": "DEBUG=* npx eleventy"
@@ -14,19 +18,23 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^0.9.0",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^2.0.3",
+    "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^3.1.0",
     "@sanity/block-content-to-markdown": "0.0.5",
-    "@sanity/client": "^2.0.0",
+    "@sanity/client": "^2.8.0",
     "@sanity/image-url": "^0.140.22",
     "autoprefixer": "^10.2.5",
-    "clean-css": "^4.2.3",
-    "dotenv": "^8.2.0",
-    "groq": "^0.142.0",
-    "luxon": "^1.19.3",
-    "markdown-it": "^10.0.0",
-    "markdown-it-anchor": "^5.2.5",
-    "postcss": "^8.2.14",
+    "dotenv": "^9.0.2",
+    "groq": "^2.2.6",
+    "luxon": "^1.26.0",
+    "markdown-it": "^12.0.6",
+    "markdown-it-anchor": "^7.1.0",
+    "markdown-it-prism": "^2.1.6",
+    "npm-run-all": "^4.1.5",
+    "postcss-cli": "^8.3.1",
     "tailwindcss": "^2.1.2"
+  },
+  "dependencies": {
+    "postcss": "^8.2.14"
   }
 }
