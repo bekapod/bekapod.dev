@@ -1,9 +1,46 @@
 @tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @layer base {
+  :root {
+    --baseline: 1.5;
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
   html {
-    @apply bg-white;
+    @apply box-border overflow-x-hidden bg-white;
+    @apply text-cool-grey-900 font-body text-base antialiased;
+  }
+
+  ::selection {
+    @apply text-cool-grey-900 bg-yellow-vivid-200;
+  }
+
+  body {
+    @apply m-0;
+  }
+
+  h1 {
+    @apply font-display;
+  }
+
+  code {
+    @apply font-mono-display;
+  }
+
+  p {
+    @apply my-4 text-base;
+  }
+
+  a {
+    @apply text-pink-vivid-400 hover:text-cool-grey-900 focus:outline-black underline transition-colors;
+    text-underline-offset: 0.1em;
   }
 }
+
+@tailwind components;
+@tailwind utilities;

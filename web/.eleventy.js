@@ -1,22 +1,8 @@
 const { DateTime } = require("luxon");
 const util = require("util");
-const postcss = require("postcss");
-const CleanCSS = require("clean-css");
-
-const postcssPlugins = [require(`tailwindcss`)("./tailwind.config.js"), require(`autoprefixer`)];
+const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 
 module.exports = function (eleventyConfig) {
-  // https://www.11ty.io/docs/quicktips/inline-css/
-  eleventyConfig.addNunjucksAsyncFilter("postcss", async function (code, callback) {
-    try {
-      const result = await postcss(...postcssPlugins).process(code, { from: undefined });
-      const minified = new CleanCSS({}).minify(result.css);
-      callback(null, minified.styles);
-    } catch (error) {
-      callback(error, null);
-    }
-  });
-
   eleventyConfig.addFilter("debug", function (value) {
     return util.inspect(value, { compact: false });
   });
