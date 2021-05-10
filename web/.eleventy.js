@@ -16,9 +16,14 @@ module.exports = function (eleventyConfig) {
     return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("yyyy-LL-dd");
   });
 
-  let markdownIt = require("markdown-it");
-  let markdownItAnchor = require("markdown-it-anchor");
-  let options = {
+  eleventyConfig.addFilter("hasTag", (postObj, tag) => {
+    if (postObj.tags && !!postObj.tags.find(({ slug }) => slug.current === tag)) {
+      return true;
+    }
+
+    return false;
+  });
+
   const markdownIt = require("markdown-it");
   const markdownItAnchor = require("markdown-it-anchor");
   const prism = require("markdown-it-prism");

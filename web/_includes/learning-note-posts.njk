@@ -1,0 +1,11 @@
+<ul reversed class="postlist" style="counter-reset: start-from {{ postslist.length + 1 }}">
+{% for post in postslist | reverse %}
+  {% set currentPost = post.data.post %}
+  {% if currentPost | hasTag('learning-notes') %}
+    <li class="postlist-item{% if post.url == url %} postlist-item-active{% endif %}">
+      <a href="{{ post.url | url }}" class="postlist-link">{% if currentPost.title %}{{ currentPost.title }}{% else %}<code>{{ post.url }}</code>{% endif %}</a>
+      <p>{{ currentPost.excerpt }}</p>
+    </li>
+  {% endif %}
+{% endfor %}
+</ul>
