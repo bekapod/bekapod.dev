@@ -19,11 +19,15 @@ module.exports = function (eleventyConfig) {
   let markdownIt = require("markdown-it");
   let markdownItAnchor = require("markdown-it-anchor");
   let options = {
+  const markdownIt = require("markdown-it");
+  const markdownItAnchor = require("markdown-it-anchor");
+  const prism = require("markdown-it-prism");
+  const options = {
     html: true,
     breaks: true,
     linkify: true,
   };
-  let opts = {
+  const opts = {
     permalink: true,
     permalinkClass: "direct-link",
     permalinkSymbol: "#",
@@ -33,8 +37,12 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("markdownify", function (value) {
     const md = new markdownIt(options);
+    md.use(prism);
     return md.render(value);
   });
+
+  eleventyConfig.addPlugin(syntaxHighlight);
+
   return {
     templateFormats: ["md", "njk", "html", "liquid"],
 
