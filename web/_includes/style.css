@@ -3,6 +3,7 @@
 @layer base {
   :root {
     --baseline: 1.5;
+    --highlight-color: #ffb8d2;
   }
 
   *,
@@ -43,4 +44,88 @@
 }
 
 @tailwind components;
+
+@layer components {
+  .notes-grid {
+    @apply grid gap-4;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  }
+
+  .notes-grid > * {
+    @apply focus-within:outline-black;
+  }
+
+  .note {
+    @apply relative bg-yellow-vivid-200 mb-6 pl-4 pr-7 pt-6 transform transition-transform duration-200 hover:rotate-1 motion-reduce:transform-none;
+  }
+
+  :nth-child(even) > .note {
+    @apply hover:-rotate-1;
+  }
+
+  .notes-grid .note {
+    height: calc(100% - var(--baseline) * 2rem);
+  }
+
+  .note::before {
+    @apply absolute top-0 left-0 w-full h-6 bg-yellow-vivid-300;
+    content: "";
+    z-index: 1;
+  }
+
+  .note > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .note-bottom {
+    @apply absolute left-0 bottom-0 block w-full;
+  }
+
+  .note-bottom::after {
+    @apply absolute left-0 -bottom-6 right-6 border-yellow-vivid-200;
+    content: "";
+    border-width: calc(var(--baseline) * 1rem);
+  }
+
+  .note-bottom::before {
+    @apply absolute right-0 -bottom-6 text-yellow-vivid-100;
+    content: "";
+    border-width: calc(var(--baseline) * 2rem) calc(var(--baseline) * 2rem) 0 0;
+    border-color: currentColor transparent;
+  }
+}
+
 @tailwind utilities;
+
+@layer utilities {
+  .highlight {
+    --highlight-color: #92fdf2;
+    background-image: linear-gradient(
+      transparent 30%,
+      var(--highlight-color) 30%,
+      var(--highlight-color) 70%,
+      transparent 70%,
+      transparent 100%
+    );
+    background-size: 100% 100%;
+  }
+
+  .fancy-link > * {
+    --highlight-color: #92fdf2;
+    @apply inline bg-no-repeat;
+    background-image: linear-gradient(
+      transparent 43%,
+      var(--highlight-color) 43%,
+      var(--highlight-color) 70%,
+      transparent 70%,
+      transparent 100%
+    );
+    background-size: 0 100%;
+  }
+
+  .fancy-link:hover > * {
+    @apply transition-all duration-500;
+    background-size: 100% 100%;
+  }
+}

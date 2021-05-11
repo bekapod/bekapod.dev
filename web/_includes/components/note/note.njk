@@ -1,0 +1,10 @@
+<article class="note">
+	<a href="{{ params.link | url }}" class="block no-underline text-cool-grey-900 fancy-link focus:outline-none">
+		<h{{params.headingLevel}} class="font-display text-lg leading-4">
+			{{ params.title }}
+		</h{{params.headingLevel}}>
+	</a>
+
+	<p class="mb-0">{{ params.content }}</p>
+	<span class="note-bottom"></span>
+</article>

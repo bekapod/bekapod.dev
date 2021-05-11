@@ -106,10 +106,16 @@ module.exports = {
       14: "calc(var(--baseline) * 6rem)",
       "5-10": "calc(var(--baseline) * 20rem)",
     },
-    extend: {},
+    extend: {
+      outline: {
+        black: ["3px dotted #000000", "2px"],
+      },
+    },
   },
   variants: {
-    extend: {},
+    extend: {
+      transform: ["motion-reduce"],
+    },
   },
   plugins: [],
 };
