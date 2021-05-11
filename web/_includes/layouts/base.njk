@@ -1,48 +1,57 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ renderData.title or title or metadata.title }}</title>
-    <meta name="Description" content="{{ renderData.description or description or metadata.description }}">
-    <link rel="stylesheet" href="https://use.typekit.net/yut6utw.css">
-    <link rel="stylesheet" href="/style.css">
-  </head>
-  <body class="container mx-auto">
-    <header class="flex justify-between items-center">
-      {% if page.url == '/' %}
-      <h1>
-      {% endif %}
-      <a href="{{ '/' | url }}" class="font-display text-xl font-extrabold no-underline text-cool-grey-900 hover:text-pink-vivid-400">
-        <span role="presentation">✨</span> {{ metadata.title }}
-      </a>
-      {% if page.url == '/' %}
-      </h1>
-      {% endif %}
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{{ renderData.title or title or metadata.title }}</title>
+		<meta name="Description" content="{{ renderData.description or description or metadata.description }}">
+		<link rel="stylesheet" href="https://use.typekit.net/yut6utw.css">
+		<link rel="stylesheet" href="//basehold.it/24">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<header class="container mx-auto flex justify-between items-center">
+			{% if page.url == '/' %}
+				<h1>
+				{% endif %}
+				<a href="{{ '/' | url }}" class="font-display text-xl font-extrabold no-underline text-cool-grey-900 hover:text-pink-vivid-400">
+					<span role="presentation">✨</span>
+					{{ metadata.title }}
+				</a>
+				{% if page.url == '/' %}
+				</h1>
+			{% endif %}
 
-      <nav>
-        <ul class="flex items-center">
-          {%- for nav in collections.nav | reverse -%}
-          <li class="nav-item{% if nav.url == page.url %} nav-item-active{% endif %}">
-            <a href="{{ nav.url | url }}" class="
-              font-display text-cool-grey-900 no-underline
-              border-cool-grey-900 border-2
-              pt-1 pb-2 px-3
-            ">{{ nav.data.navtitle }}</a>
-          </li>
-          {%- endfor -%}
-        </ul>
-      </nav>
-    </header>
+			<nav>
+				<ul class="flex items-center">
+					{%- for nav in collections.nav | reverse -%}
+						<li class="nav-item{% if nav.url == page.url %} nav-item-active{% endif %}">
+							<a href="{{ nav.url | url }}" class="font-display text-cool-grey-900 no-underline border-cool-grey-900 border-2 pt-1 pb-2 px-3">
+								{{ nav.data.navtitle }}
+							</a>
+						</li>
+					{%- endfor -%}
+				</ul>
+			</nav>
+		</header>
 
-    <main>
-      {{ content | safe }}
-    </main>
+		<main class="container mx-auto">
+			{{ content | safe }}
+		</main>
 
-    <footer>
-        <p><em>This is an <a href="https://www.11ty.io/">Eleventy</a> + <a href="https://www.sanity.io">Sanity.io</a> project inspired by the <a href="https://github.com/11ty/eleventy-base-blog"><code>eleventy-base-blog</code> repo</a>.</em></p>
-    </footer>
+		<footer>
+			<p>
+				<em>This is an
+					<a href="https://www.11ty.io/">Eleventy</a>
+					+
+					<a href="https://www.sanity.io">Sanity.io</a>
+					project inspired by the
+					<a href="https://github.com/11ty/eleventy-base-blog">
+						<code>eleventy-base-blog</code>
+						repo</a>.</em>
+			</p>
+		</footer>
 
-    <!-- Current page: {{ page.url | url }} -->
-  </body>
+		<!-- Current page: {{ page.url | url }} -->
+	</body>
 </html>

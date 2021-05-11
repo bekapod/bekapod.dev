@@ -21,7 +21,7 @@
   }
 
   body {
-    @apply m-0;
+    background: url("/bg-2.webp") repeat;
   }
 
   h1 {
