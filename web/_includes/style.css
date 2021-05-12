@@ -3,7 +3,7 @@
 @layer base {
   :root {
     --baseline: 1.5;
-    --highlight-color: #ffb8d2;
+    --highlight-color: #92fdf2;
   }
 
   *,
@@ -38,8 +38,9 @@
   }
 
   a {
-    @apply text-pink-vivid-400 hover:text-cool-grey-900 focus:outline-black underline transition-colors;
+    @apply font-bold text-cool-grey-900 hover:text-pink-vivid-400 focus:outline-black underline transition-colors decoration-color-pink-vivid-400;
     text-underline-offset: 0.1em;
+    text-decoration-thickness: 0.2em;
   }
 }
 
@@ -99,8 +100,10 @@
 @tailwind utilities;
 
 @layer utilities {
+  .container {
+    @apply w-full max-w-screen-xl mx-auto px-4 md:px-6;
+  }
   .highlight {
-    --highlight-color: #92fdf2;
     background-image: linear-gradient(
       transparent 30%,
       var(--highlight-color) 30%,
@@ -112,7 +115,6 @@
   }
 
   .fancy-link > * {
-    --highlight-color: #92fdf2;
     @apply inline bg-no-repeat;
     background-image: linear-gradient(
       transparent 43%,

@@ -1,7 +1,22 @@
 const colors = require("tailwindcss/colors");
+const { addUtilities } = require("tailwindcss");
+const _ = require("lodash");
+
+const returnColorMapping = function (createUtility, colors, prefix = null) {
+  return _.flatMap(colors, (color, name) => {
+    if (typeof color === "string" || color instanceof String) {
+      let fullName = prefix ? `${prefix}-${name}` : name;
+
+      return createUtility(fullName, color);
+    } else {
+      let newPrefix = prefix ? `${prefix}-${name}` : name;
+      return returnColorMapping(createUtility, color, newPrefix);
+    }
+  });
+};
 
 module.exports = {
-  jit: true,
+  mode: "jit",
   purge: ["./_site/**/*.html"],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -73,6 +88,7 @@ module.exports = {
     fontSize: {
       sm: ["0.875rem", { lineHeight: "1.5rem" }],
       base: ["1rem", { lineHeight: "1.5rem" }],
+      md: ["1.25rem", { lineHeight: "1.5rem" }],
       lg: ["1.5rem", { lineHeight: "1.5rem" }],
       xl: ["2.25rem", { lineHeight: "3rem" }],
       "2xl": ["3.375rem", { lineHeight: "4.5rem" }],
@@ -112,10 +128,33 @@ module.exports = {
       },
     },
   },
-  variants: {
-    extend: {
-      transform: ["motion-reduce"],
-    },
+  corePlugins: {
+    container: false,
   },
-  plugins: [],
+  plugins: [
+    ({ addUtilities, e, theme, variants }) => {
+      const colors = theme("colors", {});
+      const decorationVariants = variants("textDecoration", []);
+      const createUtility = (fullName, color) => ({
+        [`.decoration-color-${e(fullName)}`]: {
+          textDecorationColor: `${color}`,
+        },
+      });
+      const textDecorationColorUtility = returnColorMapping(createUtility, colors);
+
+      addUtilities(textDecorationColorUtility, decorationVariants);
+    },
+    ({ addUtilities, e, theme, variants }) => {
+      const colors = theme("colors", {});
+      const decorationVariants = variants("highlightColor", []);
+      const createUtility = (fullName, color) => ({
+        [`.highlight-color-${e(fullName)}`]: {
+          "--highlight-color": `${color}`,
+        },
+      });
+      const highlightColorUtility = returnColorMapping(createUtility, colors);
+
+      addUtilities(highlightColorUtility, decorationVariants);
+    },
+  ],
 };

@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="/style.css">
 	</head>
 	<body>
-		<header class="container mx-auto flex justify-between items-center">
+		<header class="container flex justify-between items-center py-4">
 			{% if page.url == '/' %}
 				<h1>
 				{% endif %}
@@ -35,7 +35,7 @@
 			</nav>
 		</header>
 
-		<main class="container mx-auto">
+		<main class="container">
 			{{ content | safe }}
 		</main>
 
