@@ -18,29 +18,74 @@
   }
 
   ::selection {
-    @apply text-cool-grey-900 bg-yellow-vivid-200;
+    @apply text-cool-grey-900 bg-yellow-vivid-100;
+    text-shadow: none;
   }
 
   body {
     background: url("/bg-2.webp") repeat;
   }
 
-  h1 {
-    @apply font-display;
+  article > *:last-child {
+    margin-bottom: 0 !important;
   }
 
-  code {
-    @apply font-mono-display;
+  h1 {
+    @apply mb-4 font-display font-bold text-xl sm:text-2xl;
+    hyphens: manual;
+  }
+
+  h2 {
+    @apply mt-4 mb-5 font-body text-xl uppercase font-extrabold;
+  }
+
+  article h2 {
+    @apply mb-3 inline-block px-2 highlight;
+  }
+
+  article h2 + * {
+    @apply mt-0;
+  }
+
+  :not(pre) > code {
+    @apply font-mono-display inline-block align-middle relative -top-0.5 font-bold rounded-sm;
+  }
+
+  :not(pre) > code::before,
+  :not(pre) > code::after {
+    content: "`";
   }
 
   p {
-    @apply my-4 text-base;
+    @apply my-4;
   }
 
   a {
-    @apply font-bold text-cool-grey-900 hover:text-pink-vivid-400 focus:outline-black underline transition-colors decoration-color-pink-vivid-400;
+    @apply font-bold text-current hover:text-pink-vivid-400 focus:outline underline transition-colors decoration-color-pink-vivid-400;
     text-underline-offset: 0.1em;
     text-decoration-thickness: 0.2em;
+  }
+
+  pre[class*="language-"] {
+    color: #f8f8f2;
+    background: none;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    tab-size: 4;
+    hyphens: none;
+  }
+
+  /* Code blocks */
+  pre[class*="language-"] {
+    @apply my-4 p-4;
+    overflow: auto;
+  }
+
+  pre[class*="language-"] {
+    @apply bg-cool-grey-800;
   }
 }
 
@@ -53,7 +98,7 @@
   }
 
   .notes-grid > * {
-    @apply focus-within:outline-black;
+    @apply focus-within:outline;
   }
 
   .note {
@@ -129,5 +174,62 @@
   .fancy-link:hover > * {
     @apply transition-all duration-500;
     background-size: 100% 100%;
+  }
+
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    @apply text-cool-grey-300;
+  }
+
+  .token.punctuation {
+    @apply text-cool-grey-50;
+  }
+
+  .token.property,
+  .token.tag,
+  .token.constant,
+  .token.symbol,
+  .token.deleted {
+    color: #ffa07a;
+  }
+
+  .token.boolean,
+  .token.number,
+  .token.operator,
+  .token.entity,
+  .token.url,
+  .language-css .token.string,
+  .style .token.string,
+  .token.variable,
+  .token.keyword {
+    @apply text-cyan-vivid-400;
+  }
+
+  .token.selector,
+  .token.attr-name,
+  .token.string,
+  .token.char,
+  .token.builtin,
+  .token.inserted {
+    @apply text-pink-vivid-200;
+  }
+
+  .token.atrule,
+  .token.attr-value,
+  .token.function,
+  .token.regex,
+  .token.important {
+    @apply text-yellow-vivid-300;
+  }
+
+  .token.important,
+  .token.bold {
+    @apply font-bold;
+  }
+
+  .token.entity {
+    cursor: help;
   }
 }

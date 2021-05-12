@@ -21,7 +21,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
-      sm: `${440 / 16}em`,
+      sm: `${540 / 16}em`,
       md: `${768 / 16}em`,
       lg: `${980 / 16}em`,
       xl: `${1280 / 16}em`,
@@ -29,6 +29,7 @@ module.exports = {
     colors: {
       initial: "initial",
       inherit: "inherit",
+      current: "currentColor",
       white: colors.white,
       "pink-vivid": {
         50: "#ffe3ec",
@@ -90,8 +91,8 @@ module.exports = {
       base: ["1rem", { lineHeight: "1.5rem" }],
       md: ["1.25rem", { lineHeight: "1.5rem" }],
       lg: ["1.5rem", { lineHeight: "1.5rem" }],
-      xl: ["2.25rem", { lineHeight: "3rem" }],
-      "2xl": ["3.375rem", { lineHeight: "4.5rem" }],
+      xl: ["2.25rem", { lineHeight: "2.25rem" }],
+      "2xl": ["3.375rem", { lineHeight: "3rem" }],
       "3xl": ["5.0625rem", { lineHeight: "6rem" }],
     },
     fontWeight: {
@@ -106,10 +107,13 @@ module.exports = {
     spacing: {
       px: "1px",
       0: 0,
+      0.5: "calc(var(--baseline) * 0.0625rem)",
       1: "calc(var(--baseline) * 0.125rem)",
       2: "calc(var(--baseline) * 0.25rem)",
       3: "calc(var(--baseline) * 0.5rem)",
       4: "calc(var(--baseline) * 1rem)",
+      4.5: "calc(var(--baseline) * 1.25rem)",
+      4.75: "calc(var(--baseline) * 1.375rem)",
       5: "calc(var(--baseline) * 1.5rem)",
       6: "calc(var(--baseline) * 2rem)",
       7: "calc(var(--baseline) * 2.5rem)",
@@ -120,13 +124,12 @@ module.exports = {
       12: "calc(var(--baseline) * 5rem)",
       13: "calc(var(--baseline) * 5.5rem)",
       14: "calc(var(--baseline) * 6rem)",
-      "5-10": "calc(var(--baseline) * 20rem)",
     },
-    extend: {
-      outline: {
-        black: ["3px dotted #000000", "2px"],
-      },
+    outline: {
+      DEFAULT: ["3px dotted currentColor", "2px"],
+      none: ["none"],
     },
+    extend: {},
   },
   corePlugins: {
     container: false,
