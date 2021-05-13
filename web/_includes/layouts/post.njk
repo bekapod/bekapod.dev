@@ -8,7 +8,7 @@ templateClass: tmpl-post
 <article class="bg-white p-4">
   <h1>{{ post.title }}</h1>
 
-  <ul class="tag-list mb-4">
+  <ul class="tag-list mb-6">
     {% for tag in post.tags %}
       <li>
         {{ t({ title: tag.title }) }}
@@ -26,22 +26,6 @@ templateClass: tmpl-post
 			<li>
 				{{ src({ link: source.url, description: source.description, title: source.title, image: source.image, headingLevel: 3 }) }}
 			</li>
-<li>
-	{{ src({ link: source.url, description: source.description, title: source.title, image: source.image, headingLevel: 3 }) }}
-</li>
-<li>
-	{{ src({ link: source.url, description: source.description, title: source.title, image: source.image, headingLevel: 3 }) }}
-</li>
-<li>
-	{{ src({ link: source.url, description: source.description, title: source.title, image: source.image, headingLevel: 3 }) }}
-</li>
-<li>
-	{{ src({ link: source.url, description: source.description, title: source.title, image: source.image, headingLevel: 3 }) }}
-</li>
-<li>
-	{{ src({ link: source.url, description: source.description, title: source.title, image: source.image, headingLevel: 3 }) }}
-</li>
-
 		{% endfor %}
 	</ul>
 </aside>

@@ -167,6 +167,10 @@
     @apply m-0 flex;
   }
 
+  .tag-list + h2 {
+    @apply mt-0;
+  }
+
   .tag-list li {
     @apply mr-5;
   }

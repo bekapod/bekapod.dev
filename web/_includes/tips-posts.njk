@@ -3,7 +3,7 @@
 <ul class="notes-grid">
 	{% for post in postslist %}
 		{% set currentPost = post.data.post %}
-		{% if currentPost | hasTag('learning-notes') %}
+		{% if currentPost | hasTag('tips-tricks') %}
 			<li>
 				{{ note({ link: post.url, content: currentPost.excerpt, title: currentPost.title, headingLevel: 3 }) }}
 			</li>
