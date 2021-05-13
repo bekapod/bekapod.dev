@@ -162,6 +162,34 @@
   .source img {
     @apply w-14;
   }
+
+  .tag-list {
+    @apply m-0 flex;
+  }
+
+  .tag-list li {
+    @apply mr-5;
+  }
+
+  .tag-list li::before {
+    @apply hidden;
+    content: "";
+  }
+
+  .tag::before {
+    @apply absolute top-0 right-0 transform translate-x-full text-yellow-vivid-300;
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 1.125rem solid transparent;
+    border-bottom: 1.125rem solid transparent;
+    border-left: 1.125rem solid currentColor;
+  }
+
+  .tag::after {
+    @apply absolute transform top-1/2 -translate-y-1/2 right-[-0.35rem] block w-[0.5rem] h-[0.5rem] bg-white rounded-full;
+    content: "";
+  }
 }
 
 @tailwind utilities;
