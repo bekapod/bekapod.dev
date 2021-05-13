@@ -3,6 +3,7 @@ const groq = require("groq");
 const client = require("../utils/sanityClient.js");
 const serializers = require("../utils/serializers");
 const overlayDrafts = require("../utils/overlayDrafts");
+const imageUrl = require("../utils/imageUrl");
 const hasToken = !!client.config().token;
 
 function generatePost(post) {
@@ -10,6 +11,15 @@ function generatePost(post) {
     ...post,
     body: BlocksToMarkdown(post.body, { serializers, ...client.config() }),
     excerpt: BlocksToMarkdown(post.excerpt, { serializers, ...client.config() }),
+    sources: post.sources?.map(generateSource) ?? [],
+  };
+}
+
+function generateSource(source) {
+  return {
+    ...source,
+    description: BlocksToMarkdown(source.description, { serializers, ...client.config() }),
+    image: source.image ? `![${source.image.alt}](${imageUrl(source.image).width(600).url()})` : "",
   };
 }
 
@@ -23,6 +33,9 @@ async function getPosts() {
     slug,
     excerpt,
     tags[]->{
+      ...
+    },
+    sources[]->{
       ...
     },
     body[]{

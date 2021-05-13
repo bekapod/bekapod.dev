@@ -2,7 +2,34 @@
 layout: layouts/base.njk
 templateClass: tmpl-post
 ---
+{%- from "components/source/macro.njk" import src -%}
+
 <article class="bg-white p-4">
   <h1>{{ post.title }}</h1>
   {{ post.body | markdownify | safe }}
 </article>
+
+<aside>
+	<h2 class="mt-5 mb-4 highlight-color-pink-vivid-100">Sources</h2>
+	<ul class="sources-grid highlight-color-pink-vivid-100">
+		{% for source in post.sources %}
+			{% set currentSource = source %}
+			<li>
+				{{ src({ link: currentSource.url, description: currentSource.description, title: currentSource.title, image: currentSource.image, headingLevel: 3 }) }}
+			</li>
+			<li>
+				{{ src({ link: currentSource.url, description: currentSource.description, title: currentSource.title, image: currentSource.image, headingLevel: 3 }) }}
+			</li>
+			<li>
+				{{ src({ link: currentSource.url, description: currentSource.description, title: currentSource.title, image: currentSource.image, headingLevel: 3 }) }}
+			</li>
+			<li>
+				{{ src({ link: currentSource.url, description: currentSource.description, title: currentSource.title, image: currentSource.image, headingLevel: 3 }) }}
+			</li>
+			<li>
+				{{ src({ link: currentSource.url, description: currentSource.description, title: currentSource.title, image: currentSource.image, headingLevel: 3 }) }}
+			</li>
+		{% endfor %}
+	</ul>
+</aside>
+

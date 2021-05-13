@@ -5,6 +5,7 @@
 		</h{{params.headingLevel}}>
 	</a>
 
-	<p class="mb-0">{{ params.content }}</p>
+	<p class="mb-0">{{ params.content | markdownify | safe }}</p>
+
 	<span class="note-bottom"></span>
 </article>

@@ -7,9 +7,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>{{ renderData.title or title or metadata.title }}</title>
 		<meta name="Description" content="{{ renderData.description or description or metadata.description }}">
-		<link
-		rel="stylesheet" href="https://use.typekit.net/yut6utw.css">
-		{# <link rel="stylesheet" href="//basehold.it/24"> #}
+		<link rel="stylesheet" href="https://use.typekit.net/yut6utw.css">
+		<link rel="stylesheet" href="//basehold.it/24">
 		<link rel="stylesheet" href="/style.css">
 	</head>
 	<body class="flex flex-col min-h-full">
@@ -26,7 +25,7 @@
 			{% endif %}
 
 			<nav>
-				<ul class="flex items-center">
+				<ul class="flex items-center m-0">
 					{%- for nav in collections.nav | reverse -%}
 						<li class="nav-item{% if nav.url == page.url %} nav-item-active{% endif %}">
 							<a href="{{ nav.url | url }}" class="font-display text-cool-grey-900 no-underline border-cool-grey-900 border-2 pt-1 pb-2 px-3">
