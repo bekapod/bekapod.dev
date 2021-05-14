@@ -1,5 +1,13 @@
 @tailwind base;
 
+body {
+  background: url("/images/bg-2.webp") repeat;
+}
+
+.no-webplossless body {
+  background-image: url("/images/bg-2.jpg");
+}
+
 @layer base {
   :root {
     --baseline: 1.5;
@@ -20,10 +28,6 @@
   ::selection {
     @apply text-cool-grey-900 bg-yellow-vivid-100;
     text-shadow: none;
-  }
-
-  body {
-    background: url("/bg-2.webp") repeat;
   }
 
   article > *:last-child {
@@ -48,8 +52,12 @@
     @apply mt-0;
   }
 
+  code {
+    @apply font-mono-display;
+  }
+
   :not(pre) > code {
-    @apply font-mono-display inline-block align-middle relative -top-0.5 font-bold rounded-sm;
+    @apply inline-block align-middle relative -top-0.5 font-bold rounded-sm;
   }
 
   :not(pre) > code::before,
@@ -92,7 +100,7 @@
 
   /* Code blocks */
   pre[class*="language-"] {
-    @apply my-4 p-4;
+    @apply my-4 p-4 font-mono-display;
     overflow: auto;
   }
 
@@ -104,14 +112,26 @@
 @tailwind components;
 
 @layer components {
+  .container {
+    @apply w-full max-w-screen-xl mx-auto px-4 md:px-6;
+  }
+
   .notes-grid {
-    @apply grid gap-4 m-0;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    @apply grid gap-4 grid-cols-1 m-0;
   }
 
   .sources-grid {
-    @apply grid gap-4 m-0;
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    @apply grid gap-4 grid-cols-1 m-0;
+  }
+
+  @screen sm {
+    .notes-grid {
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    }
+
+    .sources-grid {
+      grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    }
   }
 
   .notes-grid > *,
@@ -160,11 +180,15 @@
   }
 
   .source img {
-    @apply w-14;
+    @apply hidden w-14 sm:block;
+  }
+
+  .source p:last-child {
+    @apply mb-0;
   }
 
   .tag-list {
-    @apply m-0 flex;
+    @apply m-0 flex flex-wrap;
   }
 
   .tag-list + h2 {
@@ -172,7 +196,7 @@
   }
 
   .tag-list li {
-    @apply mr-5;
+    @apply mr-5 mb-3;
   }
 
   .tag-list li::before {
@@ -199,9 +223,6 @@
 @tailwind utilities;
 
 @layer utilities {
-  .container {
-    @apply w-full max-w-screen-xl mx-auto px-4 md:px-6;
-  }
   .highlight {
     background-image: linear-gradient(
       transparent 30%,
@@ -234,7 +255,7 @@
   .token.prolog,
   .token.doctype,
   .token.cdata {
-    @apply text-cool-grey-300;
+    @apply text-cool-grey-200;
   }
 
   .token.punctuation {

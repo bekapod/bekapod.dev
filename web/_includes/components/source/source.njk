@@ -1,5 +1,5 @@
 <div class="source bg-cool-grey-100 border-l-8 border-pink-vivid-400 flex items-start">
-	{{ params.image | markdownify | safe | replace("<p>", "") | replace("</p>", "") }}
+	{{ params.image | safe }}
 
 	<div class="p-4">
 		<a href="{{ params.link | url }}" class="block no-underline font-regular hover:text-cool-grey-900 fancy-link focus:outline-none">
@@ -8,6 +8,6 @@
 			</h{{params.headingLevel}}>
 		</a>
 
-		<p class="mb-0">{{ params.description | markdownify | safe }}</p>
+		{{ params.description | markdownify | safe }}
 	</div>
 </div>

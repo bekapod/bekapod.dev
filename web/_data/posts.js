@@ -19,7 +19,12 @@ function generateSource(source) {
   return {
     ...source,
     description: BlocksToMarkdown(source.description, { serializers, ...client.config() }),
-    image: source.image ? `![${source.image.alt}](${imageUrl(source.image).width(600).url()})` : "",
+    image: source.image
+      ? `<img src="${imageUrl(source.image).width(150).url()}" alt="${source.image.alt.replace(
+          /"/g,
+          "&quot;"
+        )}" loading="lazy" />`
+      : "",
   };
 }
 

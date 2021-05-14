@@ -1533,6 +1533,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@quasibit/eleventy-plugin-sitemap@npm:^2.1.4":
+  version: 2.1.4
+  resolution: "@quasibit/eleventy-plugin-sitemap@npm:2.1.4"
+  dependencies:
+    array-flat-polyfill: ^1.0.1
+    sitemap: ^6.3.2
+  peerDependencies:
+    "@11ty/eleventy": ">=0.11.0 <0.13.0"
+  checksum: 0d5464338653f32efd3d2615ae0aec3187d9573571e48c45b2e693ac89b8868e56f898d43276bd004814e1762b60fc9f3fbbbd64f8bd73bcc4647905eadc764b
+  languageName: node
+  linkType: hard
+
 "@reach/auto-id@npm:^0.13.2":
   version: 0.13.2
   resolution: "@reach/auto-id@npm:0.13.2"
@@ -2537,6 +2549,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^14.14.28":
+  version: 14.14.45
+  resolution: "@types/node@npm:14.14.45"
+  checksum: b9ad381a8cc5273bfd75d5870f57eed2b0978a5afe9e7e0347fcdb955e9fed502277a374c2837c3e1fe6a7ade58d53a460d954dbbe50e2f18bdd7e86075ffca9
+  languageName: node
+  linkType: hard
+
 "@types/normalize-package-data@npm:^2.4.0":
   version: 2.4.0
   resolution: "@types/normalize-package-data@npm:2.4.0"
@@ -2573,6 +2592,15 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: f9793e8113f14122d6ed20643b4fe27d30e10d7c80571a1d238c13f8171864f2a7b337194bf41310724498586ed4560fffd081a2d21e488afbb1aca33534189b
+  languageName: node
+  linkType: hard
+
+"@types/sax@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "@types/sax@npm:1.2.1"
+  dependencies:
+    "@types/node": "*"
+  checksum: 99f2c89dd69b53136d6ffdd4bc431ef2e1cdf29ac2b5c67bb3ec09c12814b5440e85fe3d31562774ad093d3631cf0660b6e5443c70f8654dd7d4ef3a797a0964
   languageName: node
   linkType: hard
 
@@ -3100,6 +3128,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"arg@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "arg@npm:5.0.0"
+  checksum: d5e270723c079fd841dce7e94669e037676b7960110dea244f3de21c935debe800528ac3a7c4c306c1159c8ad7f3eb19ef3e3650243ebd45dfcd69f4a8041a39
+  languageName: node
+  linkType: hard
+
 "argparse@npm:^1.0.7":
   version: 1.0.10
   resolution: "argparse@npm:1.0.10"
@@ -3172,6 +3207,13 @@ __metadata:
   version: 1.0.2
   resolution: "array-find-index@npm:1.0.2"
   checksum: 5320b3bd4680eadee5191b8d8a4f01788f8761e11ae5d8d8f67e836308760d453c38300cdef41315e8adf24979083f73c353f651f1dc029ab3c712c1ef5ebf17
+  languageName: node
+  linkType: hard
+
+"array-flat-polyfill@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "array-flat-polyfill@npm:1.0.1"
+  checksum: 4827aaf9bc2a07b6d9eb1c5fdf6cb9eb3c92ba61453c9fc3d6f6d51bb9b5393f56e08cd8bbfd77a28db962db91715f8b7793ae24967e41f1a9abcb93d15d42fa
   languageName: node
   linkType: hard
 
@@ -3726,6 +3768,7 @@ __metadata:
   dependencies:
     "@11ty/eleventy": ^0.12.1
     "@11ty/eleventy-plugin-syntaxhighlight": ^3.1.0
+    "@quasibit/eleventy-plugin-sitemap": ^2.1.4
     "@sanity/block-content-to-markdown": 0.0.5
     "@sanity/client": ^2.8.0
     "@sanity/image-url": ^0.140.22
@@ -14404,7 +14447,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sax@npm:~1.2.4":
+"sax@npm:^1.2.4, sax@npm:~1.2.4":
   version: 1.2.4
   resolution: "sax@npm:1.2.4"
   checksum: 9d7668d69105e89e2c1a4b2fdc12c72e1a2f78b825f7b4a8a2ea5cdfebf70920bd17715bed55264c3b3959616a0695f8ad2d098bf6944fbd0953ee9c695dceef
@@ -14800,6 +14843,20 @@ resolve@^2.0.0-next.3:
   dependencies:
     is-arrayish: ^0.3.1
   checksum: a5a2c1c86cea94f42ab843508e7c68b5bbfd15acb08056d600ac2e9c7f7c41bc417e71160ea3034a5411d3cce186c801f7a56badfb3a854906ce163120318875
+  languageName: node
+  linkType: hard
+
+"sitemap@npm:^6.3.2":
+  version: 6.4.0
+  resolution: "sitemap@npm:6.4.0"
+  dependencies:
+    "@types/node": ^14.14.28
+    "@types/sax": ^1.2.1
+    arg: ^5.0.0
+    sax: ^1.2.4
+  bin:
+    sitemap: dist/cli.js
+  checksum: e978fe75af2d5db02846156d1bca3e62c5983e534f4e7705054da05df9f98ebde202dbef43d4a96ed118196496e6db153c7101c3c96e01ecf59bda224a039ba5
   languageName: node
   linkType: hard
 

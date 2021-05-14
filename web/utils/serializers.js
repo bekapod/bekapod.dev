@@ -4,6 +4,7 @@ const imageUrl = require("./imageUrl");
 module.exports = {
   types: {
     code: ({ node }) => "```" + node.language + "\n" + node.code + "\n```",
-    mainImage: ({ node }) => `![${node.alt}](${imageUrl(node).width(600).url()})`,
+    mainImage: ({ node }) =>
+      `<img src="${imageUrl(node).width(600).url()}" alt="${node.alt}" loading="lazy" />`,
   },
 };

@@ -1,6 +1,7 @@
 const { DateTime } = require("luxon");
 const util = require("util");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+const sitemap = require("@quasibit/eleventy-plugin-sitemap");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("debug", function (value) {
@@ -47,6 +48,14 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addPlugin(syntaxHighlight);
+
+  eleventyConfig.addPlugin(sitemap, {
+    sitemap: {
+      hostname: "https://www.bekapod.dev",
+    },
+  });
+
+  eleventyConfig.addPassthroughCopy("js");
 
   return {
     templateFormats: ["md", "njk", "html", "liquid", "jpg", "webp", "png", "ico", "webmanifest"],
