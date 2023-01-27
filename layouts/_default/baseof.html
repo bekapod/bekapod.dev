@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html class="h-full antialiased" lang="en">
+  {{- partial "head.html" . -}}
+  <body class="flex h-full flex-col bg-slate-50 dark:bg-black">
+    <div class="fixed inset-0 flex justify-center sm:px-8">
+      <div class="flex w-full max-w-7xl lg:px-8">
+        <div
+          class="w-full bg-white ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-300/20"
+        ></div>
+      </div>
+    </div>
+    <div class="relative">
+      {{- partial "header.html" . -}}
+      <main>{{- block "main" . }}{{- end }}</main>
+      {{- partial "footer.html" . -}}
+    </div>
+  </body>
+</html>

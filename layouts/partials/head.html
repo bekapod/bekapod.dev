@@ -1,0 +1,25 @@
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="manifest" href="/site.webmanifest" />
+
+{{ $styles := resources.Get "/css/dist/base.css" }}
+{{ if .Site.IsServer }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
+{{ else }}
+  {{ $styles := $styles | minify }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
+{{ end }}
+
+
+<link rel="stylesheet" href="https://use.typekit.net/yut6utw.css" />
+
+{{ if not .Site.IsServer }}
+  <script
+    async
+    defer
+    data-website-id="23132b54-0cf6-44ef-bf6f-72bbe3c263bc"
+    src="https://umami-production-76f1.up.railway.app/umami.js"
+  ></script>
+{{ end }}
