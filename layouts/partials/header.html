@@ -5,28 +5,88 @@
         <div class="relative flex gap-4">
           <span class="flex-1"></span>
           <div class="flex flex-1 justify-end md:justify-center">
-            <div class="md:hidden">
-              <button
-                type="button"
-                aria-expanded="false"
-                class="group flex items-center rounded bg-white/90 px-4 py-2 text-sm font-medium text-slate-800 shadow-lg shadow-slate-800/5 ring-1 ring-slate-900/5 backdrop-blur dark:bg-slate-800/90 dark:text-slate-200 dark:ring-white/10 dark:hover:ring-white/20"
-              >
-                Menu
-                <svg
-                  viewBox="0 0 8 6"
-                  aria-hidden="true"
-                  class="ml-3 h-auto w-2 stroke-slate-500 group-hover:stroke-slate-700 dark:group-hover:stroke-slate-400"
+            <template x-data x-if="!$store.screen.md">
+              <div class="md:hidden" x-data="{ open: false }">
+                <button
+                  type="button"
+                  aria-expanded="false"
+                  class="group flex items-center rounded bg-white/90 px-4 py-2 text-sm font-medium text-slate-800 shadow-lg shadow-slate-800/5 ring-1 ring-slate-900/5 backdrop-blur dark:bg-slate-800/90 dark:text-slate-200 dark:ring-white/10 dark:hover:ring-white/20"
+                  @click="open = true"
                 >
-                  <path
-                    d="M1.75 1.75 4 4.25l2.25-2.5"
-                    fill="none"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                </svg>
-              </button>
-            </div>
+                  Menu
+                  <svg
+                    viewBox="0 0 8 6"
+                    aria-hidden="true"
+                    class="ml-3 h-auto w-2 stroke-slate-500 group-hover:stroke-slate-700 dark:group-hover:stroke-slate-400"
+                  >
+                    <path
+                      d="M1.75 1.75 4 4.25l2.25-2.5"
+                      fill="none"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </svg>
+                </button>
+
+                <div x-show="open">
+                  <div
+                    class="fixed inset-0 z-50 bg-slate-400/40 opacity-100 backdrop-blur-sm dark:bg-black/80"
+                    aria-hidden="true"
+                  ></div>
+                  <div
+                    x-trap.noscroll.inert="open"
+                    class="fixed inset-x-4 top-8 z-50 origin-top scale-100 rounded bg-white p-8 opacity-100 ring-1 ring-slate-900/5 dark:bg-slate-900 dark:ring-slate-800"
+                    tabindex="-1"
+                  >
+                    <div
+                      class="flex flex-row-reverse items-center justify-between"
+                    >
+                      <button
+                        aria-label="Close menu"
+                        class="-m-1 p-1"
+                        type="button"
+                        @click="open = false"
+                      >
+                        <svg
+                          viewbox="0 0 24 24"
+                          aria-hidden="true"
+                          class="h-6 w-6 text-slate-500 dark:text-slate-400"
+                        >
+                          <path
+                            d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          ></path>
+                        </svg>
+                      </button>
+                      <h2
+                        class="text-sm font-medium text-slate-600 dark:text-slate-400"
+                      >
+                        Navigation
+                      </h2>
+                    </div>
+                    <nav class="mt-6">
+                      <ul
+                        class="-my-2 divide-y divide-slate-100 text-base text-slate-800 dark:divide-slate-100/5 dark:text-slate-300"
+                      >
+                        {{ $currentPage := . }}
+                        {{ range .Site.Menus.main }}
+                          <li>
+                            <a class="block py-2" href="{{ .URL }}">
+                              {{ .Title }}
+                            </a>
+                          </li>
+                        {{ end }}
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </template>
 
             <nav class="hidden md:block">
               <ul
