@@ -1,0 +1,29 @@
+<footer class="section mt-32">
+  <div class="outer-container">
+    <div
+      class="container border-t border-slate-100 pt-10 pb-16 dark:border-slate-700/40"
+    >
+      <div class="inner-container">
+        <div
+          class="flex flex-col items-center justify-between gap-6 sm:flex-row"
+        >
+          <div
+            class="flex gap-6 text-sm font-medium text-slate-800 dark:text-slate-200"
+          >
+            {{ range .Site.Menus.main }}
+              <a
+                class="transition hover:text-pink-500 dark:hover:text-pink-400"
+                href="{{ .URL }}"
+              >
+                {{ .Title }}
+              </a>
+            {{ end }}
+          </div>
+          <p class="text-sm text-slate-500 dark:text-slate-400">
+            © {{ dateFormat "2006" now }} Becky Jones. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
