@@ -5,6 +5,9 @@
   {{ else if .IsSection }}
     {{ with .Params.linkTitle }}{{ . }} –{{ end }}
     {{ .Site.Title }}
+  {{ else }}
+    {{ with .Title }}{{ . }} –{{ end }}
+    {{ .Site.Title }}
   {{ end }}
 </title>
 
@@ -16,6 +19,8 @@
   <meta name="description" content="{{ .Site.Params.description }}" />
 {{ else if .IsSection }}
   <meta name="description" content="{{ .Title }}" />
+{{ else }}
+  <meta name="description" content="{{ .Description }}" />
 {{ end }}
 
 
@@ -23,6 +28,14 @@
 <link rel="canonical" href="{{ .Permalink }}" />
 
 {{ $styles := resources.Get "/css/dist/base.css" }}
+{{ if .Site.IsServer }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
+{{ else }}
+  {{ $styles := $styles | minify }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
+{{ end }}
+
+{{ $styles := resources.Get "/css/syntax.css" }}
 {{ if .Site.IsServer }}
   <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
 {{ else }}

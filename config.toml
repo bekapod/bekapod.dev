@@ -5,6 +5,9 @@ enableRobotsTXT = true
 disableKinds = ['taxonomy', 'term']
 sectionPagesMenu = 'main'
 
+[markup.highlight]
+  noClasses = false
+
 [Params]
   description = 'Frontend developer, serial hobby app builder and crafter'
 
