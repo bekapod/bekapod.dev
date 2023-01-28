@@ -5,4 +5,6 @@ menu:
   main:
     title: 'Home'
     weight: -1
+sitemap:
+  changefreq: weekly
 ---

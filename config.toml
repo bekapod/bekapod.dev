@@ -1,7 +1,12 @@
 baseURL = 'https://www.bekapod.dev/'
 languageCode = 'en-gb'
-title = 'Becky Jones - Frontend developer, serial hobby app builder and crafter'
-sectionPagesMenu = "main"
+title = 'Becky Jones'
+enableRobotsTXT = true
+disableKinds = ['taxonomy', 'term']
+sectionPagesMenu = 'main'
+
+[Params]
+  description = 'Frontend developer, serial hobby app builder and crafter'
 
 [Params.social]
   github = 'https://github.com/bekapod'

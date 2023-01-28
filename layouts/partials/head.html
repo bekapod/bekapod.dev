@@ -1,8 +1,26 @@
+<title>
+  {{ if .IsHome }}
+    {{ .Site.Title }} –
+    {{ .Site.Params.description }}
+  {{ else if .IsSection }}
+    {{ with .Params.linkTitle }}{{ . }} –{{ end }}
+    {{ .Site.Title }}
+  {{ end }}
+</title>
+
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+{{ if .IsHome }}
+  <meta name="description" content="{{ .Site.Params.description }}" />
+{{ else if .IsSection }}
+  <meta name="description" content="{{ .Title }}" />
+{{ end }}
+
+
 <link rel="manifest" href="/site.webmanifest" />
+<link rel="canonical" href="{{ .Permalink }}" />
 
 {{ $styles := resources.Get "/css/dist/base.css" }}
 {{ if .Site.IsServer }}
