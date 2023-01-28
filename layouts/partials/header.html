@@ -1,0 +1,66 @@
+<header class="section flex h-16 flex-col pt-6">
+  <div class="outer-container">
+    <div class="container">
+      <div class="inner-container">
+        <div class="relative flex gap-4">
+          <span class="flex-1"></span>
+          <div class="flex flex-1 justify-end md:justify-center">
+            <div class="md:hidden">
+              <button
+                type="button"
+                aria-expanded="false"
+                class="group flex items-center rounded bg-white/90 px-4 py-2 text-sm font-medium text-slate-800 shadow-lg shadow-slate-800/5 ring-1 ring-slate-900/5 backdrop-blur dark:bg-slate-800/90 dark:text-slate-200 dark:ring-white/10 dark:hover:ring-white/20"
+              >
+                Menu
+                <svg
+                  viewBox="0 0 8 6"
+                  aria-hidden="true"
+                  class="ml-3 h-auto w-2 stroke-slate-500 group-hover:stroke-slate-700 dark:group-hover:stroke-slate-400"
+                >
+                  <path
+                    d="M1.75 1.75 4 4.25l2.25-2.5"
+                    fill="none"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+
+            <nav class="hidden md:block">
+              <ul
+                class="flex rounded bg-white/90 px-3 text-sm font-medium text-slate-800 shadow-lg shadow-slate-800/5 ring-1 ring-slate-900/5 backdrop-blur dark:bg-slate-800/90 dark:text-slate-200 dark:ring-white/10"
+              >
+                {{ $currentPage := . }}
+                {{ range .Site.Menus.main }}
+                  <li>
+                    <a
+                      class="{{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}
+                        text-pink-500 dark:text-pink-400
+                      {{ else }}
+                        hover:text-pink-500 dark:hover:text-pink-400
+                      {{ end }} relative block px-3 py-2 transition"
+                      href="{{ .URL }}"
+                    >
+                      {{ .Title }}
+                      {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}
+                        <span
+                          class="absolute inset-x-1 -bottom-px h-[2px] rounded bg-pink-500"
+                        ></span>
+                      {{ end }}
+                    </a>
+                  </li>
+                {{ end }}
+              </ul>
+            </nav>
+          </div>
+
+          <div class="flex justify-end md:flex-1">
+            <!-- DARK MODE -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

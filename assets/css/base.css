@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .outer-container {
+    @apply mx-auto max-w-7xl lg:px-8;
+  }
+
+  .container {
+    @apply px-4 sm:px-8 lg:px-12;
+  }
+
+  .inner-container {
+    @apply mx-auto max-w-2xl lg:max-w-5xl;
+  }
+
+  .section {
+    @apply sm:px-8;
+  }
+}
