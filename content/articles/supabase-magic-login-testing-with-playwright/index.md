@@ -1,25 +1,27 @@
 ---
 date: 2023-01-26T18:02:58Z
-description: "I'll present a solution for testing Supabase's Magic Login Link strategy with Playwright, including an example GitHub Action job."
+description: "I'll share a technique for testing Supabase's Magic Login Link feature with Playwright, including a sample GitHub Action configuration. This approach will help you validate the functionality of your Magic Login Link and identify any potential issues."
 draft: false
 images: []
 lastmod: 2023-01-26T18:02:58Z
 publishDate: 2023-01-26T18:02:58Z
 series: []
 slug: ''
-summary: "I'll present a solution for testing Supabase's Magic Login Link strategy with Playwright, including an example GitHub Action job."
+summary: "I'll share a technique for testing Supabase's Magic Login Link feature with Playwright, including a sample GitHub Action configuration. This approach will help you validate the functionality of your Magic Login Link and identify any potential issues."
 title: 'Testing Supabase Magic Login in CI with Playwright'
 ---
 
-I like to go the extra mile with my hobby apps. Recently I've been working on a
-little hobby app using [SvelteKit](https://kit.svelte.dev/) and [Supabase](https://supabase.com/).
-Proper automated testing usually features because it reinforces good habits and
-allows me to try out different tools than I use day-to-day.
+I enjoy putting extra effort into my hobby apps. Recently I've been working on a
+little hobby app using [SvelteKit](https://kit.svelte.dev/) and
+[Supabase](https://supabase.com/). One aspect that I value is proper automated
+testing. It not only ingrains good practices but also allows me to experiment
+with tools that diverge from my daily routine.
 
-I'm going to talk about how I'm authenticating in my CI test runs
-([GitHub Actions](https://github.com/features/actions)) using a combination of
+I'll discuss how I handle authentication in my CI test runs using
+[GitHub Actions](https://github.com/features/actions), specifically by combining
 [Supabase Local Development](https://supabase.com/docs/guides/cli/local-development)
-and [Playwright](https://playwright.dev/).
+and [Playwright](https://playwright.dev/). This approach allows me to authenticate
+and test my app easily.
 
 ## Requirements
 
@@ -367,15 +369,16 @@ playwright:
 
 ## Summary
 
-To summarise, we've:
+We've made some significant progress in our testing process.
 
-1. Started a local Supabase instance, whether it be on our local machine or in CI
-2. Learnt how Supabase sends emails locally and how to interact with them.
-3. Written a global setup function for Playwright, which will run before our
-   tests, and ensure all tests run with the user's session already initialised.
-4. We wrote a short Playwright test to verify that everything works together.
+1. We've set up a local Supabase instance, both on our local machines and in CI
+   environments.
+2. We've also learned how to send and interact with emails locally using Supabase.
+3. We've written a global setup function for Playwright that runs before our tests
+   and ensures that all tests run with the user's session already initialized.
+4. We've even run a short Playwright test to verify that everything is working
+   together.
 
-From here, you can continue testing the rest of your app. I have yet to write
-any end-to-end tests for the unauthenticated portion of my app. If you do need
-to, the global setup function will interfere. You could create a separate suite
-of tests without the global setup.
+From here, you can continue testing the rest of your app. The global setup
+function may interfere if you need to test the unauthenticated portion of your
+app. You can create a separate suite of tests without it.
