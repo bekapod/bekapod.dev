@@ -11,8 +11,12 @@
   }
 
   .card-title::before {
-    @apply absolute -inset-y-6 -inset-x-4 z-0 scale-95 bg-pink-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-pink-900/30 sm:-inset-x-6 sm:rounded;
+    @apply absolute -inset-y-6 -inset-x-4 z-0 scale-95 bg-pink-50 opacity-0 transition dark:bg-pink-900/30 sm:-inset-x-6 sm:rounded;
     content: '';
+  }
+
+  .card-title:has(a)::before {
+    @apply group-hover:scale-100 group-hover:opacity-100;
   }
 
   .card-link::before {
