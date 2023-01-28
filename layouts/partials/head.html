@@ -29,28 +29,14 @@
   defer
   src="https://unpkg.com/@alpinejs/focus@3.11.1/dist/cdn.min.js"
 ></script>
+
+{{ $scripts := resources.Get "/js/app.js" }}
+{{ if .Site.IsServer }}
+  <script defer src="{{ $scripts.RelPermalink }}"></script>
+{{ else }}
+  {{ $scripts := $scripts | minify }}
+  <script defer src="{{ $scripts.RelPermalink }}"></script>
+{{ end }}
+
+
 <script defer src="https://unpkg.com/alpinejs@3.11.1/dist/cdn.min.js"></script>
-
-<script>
-  document.addEventListener('alpine:init', () => {
-    Alpine.store('screen', {
-      sm: false,
-      md: false,
-      lg: false,
-      xl: false,
-
-      init() {
-        this.setupMediaQuery('sm', 640)
-        this.setupMediaQuery('md', 768)
-        this.setupMediaQuery('lg', 1024)
-        this.setupMediaQuery('xl', 1280)
-      },
-
-      setupMediaQuery(name, minWidth) {
-        const mql = window.matchMedia(`(min-width: ${minWidth}px)`)
-        this[name] = mql.matches
-        mql.addEventListener('change', ({ matches }) => (this[name] = matches))
-      },
-    })
-  })
-</script>
