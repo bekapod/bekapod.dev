@@ -4,7 +4,7 @@
 
 @layer utilities {
   .outer-container {
-    @apply mx-auto max-w-7xl lg:px-8;
+    @apply mx-auto w-full max-w-7xl lg:px-8;
   }
 
   .container {

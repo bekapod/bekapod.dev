@@ -1,0 +1,34 @@
+[
+  {
+    "company": "Prolific",
+    "title": "Senior Frontend Developer",
+    "logo": "/images/prolific-logo.webp",
+    "logo_avif": "/images/prolific-logo.avif",
+    "start": 2022,
+    "end": "Present"
+  },
+  {
+    "company": "Inviqa",
+    "title": "Frontend Developer, Senior Frontend Developer",
+    "logo": "/images/inviqa-logo.webp",
+    "logo_avif": "/images/inviqa-logo.avif",
+    "start": 2015,
+    "end": 2022
+  },
+  {
+    "company": "Yoma",
+    "title": "Frontend Developer, Senior Frontend Developer",
+    "logo": "/images/yoma-logo.webp",
+    "logo_avif": "/images/yoma-logo.avif",
+    "start": 2012,
+    "end": 2015
+  },
+  {
+    "company": "Outgoing",
+    "title": "Web Developer",
+    "logo": "/images/outgoing-logo.webp",
+    "logo_avif": "/images/outgoing-logo.avif",
+    "start": 2010,
+    "end": 2012
+  }
+]
