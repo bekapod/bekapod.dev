@@ -1,5 +1,46 @@
 @tailwind base;
 @tailwind components;
+
+@layer components {
+  .card {
+    @apply relative flex flex-col items-start;
+  }
+
+  .card-title {
+    @apply font-accent text-xl font-normal tracking-tight text-slate-800 dark:text-slate-100;
+  }
+
+  .card-title::before {
+    @apply absolute -inset-y-6 -inset-x-4 z-0 scale-95 bg-pink-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-pink-900/30 sm:-inset-x-6 sm:rounded;
+    content: '';
+  }
+
+  .card-link::before {
+    @apply absolute -inset-y-6 -inset-x-4 z-20 sm:-inset-x-6 sm:rounded-2xl;
+    content: '';
+  }
+
+  .card-link-text {
+    @apply relative z-10;
+  }
+
+  .card-description {
+    @apply relative z-10 mt-2 text-sm text-slate-600 dark:text-slate-400;
+  }
+
+  .card-cta {
+    @apply relative z-10 mt-4 flex items-center text-sm font-medium text-pink-500;
+  }
+
+  .card-cta-icon {
+    @apply ml-1 h-4 w-4 stroke-current;
+  }
+
+  .card-eyebrow {
+    @apply relative z-10 order-first mb-3 text-sm font-semibold text-slate-600 underline decoration-slate-200 decoration-2 underline-offset-8 group-hover:decoration-pink-200 dark:text-slate-400 dark:decoration-slate-700 dark:group-hover:text-slate-300 dark:group-hover:decoration-pink-700/40;
+  }
+}
+
 @tailwind utilities;
 
 @layer utilities {

@@ -33,8 +33,34 @@
             class="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2"
           >
             <div class="flex flex-col gap-16">
-              {{ range first 10 .Site.RegularPages }}
-                {{ .Render "summary" }}
+              {{ range first 10 (where .Site.RegularPages.ByPublishDate.Reverse "Type" "articles") }}
+                <article class="card group">
+                  <h2 class="card-title">
+                    <a class="card-link" href="{{ .Permalink }}">
+                      <span class="card-link-text">{{ .Title }}</span>
+                    </a>
+                  </h2>
+                  <time class="card-eyebrow" datetime="{{ .PublishDate }}">
+                    {{ .PublishDate | time.Format ":date_long" }}
+                  </time>
+                  <p class="card-description">{{ .Summary }}</p>
+                  <div class="card-cta" aria-hidden="true">
+                    Read article
+                    <svg
+                      viewbox="0 0 16 16"
+                      fill="none"
+                      aria-hidden="true"
+                      class="card-cta-icon"
+                    >
+                      <path
+                        d="M6.75 5.75 9.25 8l-2.5 2.25"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </article>
               {{ end }}
             </div>
 
