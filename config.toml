@@ -1,3 +1,8 @@
 baseURL = 'https://www.bekapod.dev/'
 languageCode = 'en-gb'
 title = 'Becky Jones - Frontend developer, serial hobby app builder and crafter'
+
+[Params.social]
+  github = 'https://github.com/bekapod'
+  linkedin = 'https://www.linkedin.com/in/rebekah-jones-b3622a40/'
+  twitter = 'https://twitter.com/bekapod'
