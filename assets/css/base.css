@@ -11,7 +11,7 @@
   }
 
   .card-title::before {
-    @apply absolute -inset-y-6 -inset-x-4 z-0 scale-95 bg-pink-50 opacity-0 transition dark:bg-pink-900/30 sm:-inset-x-6 sm:rounded;
+    @apply absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-pink-50 opacity-0 transition dark:bg-pink-900/30 sm:-inset-x-6 sm:rounded;
     content: '';
   }
 
@@ -20,7 +20,7 @@
   }
 
   .card-link::before {
-    @apply absolute -inset-y-6 -inset-x-4 z-20 sm:-inset-x-6 sm:rounded-2xl;
+    @apply absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl;
     content: '';
   }
 
