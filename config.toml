@@ -1,6 +1,6 @@
 baseURL = 'https://www.bekapod.dev/'
 languageCode = 'en-gb'
-title = 'Becky Jones'
+title = 'bekapod.dev'
 enableRobotsTXT = true
 disableKinds = ['taxonomy', 'term']
 sectionPagesMenu = 'main'
