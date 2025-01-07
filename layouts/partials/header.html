@@ -90,7 +90,7 @@
                       {{ range .Site.Menus.main }}
                         <li>
                           <a class="block py-2" href="{{ .URL }}">
-                            {{ .Title }}
+                            {{ .Name }}
                           </a>
                         </li>
                       {{ end }}
@@ -115,7 +115,7 @@
                       {{ end }} relative block px-3 py-2 transition"
                       href="{{ .URL }}"
                     >
-                      {{ .Title }}
+                      {{ .Name }}
                       {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}
                         <span
                           class="absolute inset-x-1 -bottom-px h-[2px] rounded bg-pink-500"

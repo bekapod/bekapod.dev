@@ -28,7 +28,7 @@
 <link rel="canonical" href="{{ .Permalink }}" />
 
 {{ $styles := resources.Get "/css/dist/base.css" }}
-{{ if .Site.IsServer }}
+{{ if hugo.IsServer }}
   <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
 {{ else }}
   {{ $styles := $styles | minify }}
@@ -36,7 +36,7 @@
 {{ end }}
 
 {{ $styles := resources.Get "/css/syntax.css" }}
-{{ if .Site.IsServer }}
+{{ if hugo.IsServer }}
   <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
 {{ else }}
   {{ $styles := $styles | minify }}
@@ -46,7 +46,7 @@
 
 <link rel="stylesheet" href="https://use.typekit.net/yut6utw.css" />
 
-{{ if not .Site.IsServer }}
+{{ if not hugo.IsServer }}
   <script
     defer
     async
@@ -63,7 +63,7 @@
 ></script>
 
 {{ $scripts := resources.Get "/js/app.js" }}
-{{ if .Site.IsServer }}
+{{ if hugo.IsServer }}
   <script defer src="{{ $scripts.RelPermalink }}"></script>
 {{ else }}
   {{ $scripts := $scripts | minify }}
