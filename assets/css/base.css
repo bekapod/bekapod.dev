@@ -33,7 +33,7 @@
   }
 
   .card-cta {
-    @apply relative z-10 mt-4 flex items-center text-sm font-medium text-pink-500;
+    @apply relative z-10 mt-4 flex items-center text-sm font-medium text-pink-500 underline-offset-4 hover:underline;
   }
 
   .card-cta-icon {
