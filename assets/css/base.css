@@ -1,66 +1,81 @@
-@tailwind base;
-@tailwind components;
+@import 'tailwindcss';
 
-@layer components {
-  .card {
-    @apply relative flex flex-col items-start;
-  }
+@config '../../tailwind.config.js';
 
-  .card-title {
-    @apply font-accent text-xl font-normal tracking-tight text-slate-800 dark:text-slate-100;
-  }
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
 
-  .card-title::before {
-    @apply absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-pink-50 opacity-0 transition dark:bg-pink-900/30 sm:-inset-x-6 sm:rounded;
-    content: '';
-  }
-
-  .card-title:has(a)::before {
-    @apply group-hover:scale-100 group-hover:opacity-100;
-  }
-
-  .card-link::before {
-    @apply absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl;
-    content: '';
-  }
-
-  .card-link-text {
-    @apply relative z-10;
-  }
-
-  .card-description {
-    @apply relative z-10 mt-2 text-sm text-slate-600 dark:text-slate-400;
-  }
-
-  .card-cta {
-    @apply relative z-10 mt-4 flex items-center text-sm font-medium text-pink-500 underline-offset-4 hover:underline;
-  }
-
-  .card-cta-icon {
-    @apply ml-1 h-4 w-4 stroke-current;
-  }
-
-  .card-eyebrow {
-    @apply relative z-10 order-first mb-3 text-sm font-semibold text-slate-600 underline decoration-slate-200 decoration-2 underline-offset-8 group-hover:decoration-pink-200 dark:text-slate-400 dark:decoration-slate-700 dark:group-hover:text-slate-300 dark:group-hover:decoration-pink-700/40;
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
   }
 }
 
-@tailwind utilities;
+@utility card {
+  @apply relative flex flex-col items-start;
+}
 
-@layer utilities {
-  .outer-container {
-    @apply mx-auto w-full max-w-7xl lg:px-8;
+@utility card-title {
+  @apply font-accent text-xl font-normal tracking-tight text-slate-800 dark:text-slate-100;
+
+  &::before {
+    @apply absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-pink-50 opacity-0 transition dark:bg-pink-900/30 sm:-inset-x-6 sm:rounded-sm;
+    content: '';
   }
 
-  .container {
-    @apply px-4 sm:px-8 lg:px-12;
+  &:has(a)::before {
+    @apply group-hover:scale-100 group-hover:opacity-100;
   }
+}
 
-  .inner-container {
-    @apply mx-auto max-w-2xl lg:max-w-5xl;
+@utility card-link {
+  &::before {
+    @apply absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl;
+    content: '';
   }
+}
 
-  .section {
-    @apply sm:px-8;
-  }
+@utility card-link-text {
+  @apply relative z-10;
+}
+
+@utility card-description {
+  @apply relative z-10 mt-2 text-sm text-slate-600 dark:text-slate-400;
+}
+
+@utility card-cta {
+  @apply relative z-10 mt-4 flex items-center text-sm font-medium text-pink-500 underline-offset-4 hover:underline;
+}
+
+@utility card-cta-icon {
+  @apply ml-1 h-4 w-4 stroke-current;
+}
+
+@utility card-eyebrow {
+  @apply relative z-10 order-first mb-3 text-sm font-semibold text-slate-600 underline decoration-slate-200 decoration-2 underline-offset-8 group-hover:decoration-pink-200 dark:text-slate-400 dark:decoration-slate-700 dark:group-hover:text-slate-300 dark:group-hover:decoration-pink-700/40;
+}
+
+@utility outer-container {
+  @apply mx-auto w-full max-w-7xl lg:px-8;
+}
+
+@utility container {
+  @apply px-4 sm:px-8 lg:px-12;
+}
+
+@utility inner-container {
+  @apply mx-auto max-w-2xl lg:max-w-5xl;
+}
+
+@utility section {
+  @apply sm:px-8;
 }
