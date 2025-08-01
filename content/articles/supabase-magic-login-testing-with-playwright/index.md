@@ -1,13 +1,13 @@
 ---
 date: 2023-01-26T18:02:58Z
-description: "I'll share a technique for testing Supabase's Magic Login Link feature with Playwright, including a sample GitHub Action configuration. This approach will help you validate the functionality of your Magic Login Link and identify any potential issues."
+description: "I'm going to walk you through how to test Supabase's Magic Login Links with Playwright, plus I'll throw in a GitHub Action setup you can use. This will help you make sure your Magic Login actually works and catch any bugs before they hit production."
 draft: false
 images: []
 lastmod: 2023-01-26T18:02:58Z
 publishDate: 2023-01-26T18:02:58Z
 series: []
 slug: ''
-summary: "I'll share a technique for testing Supabase's Magic Login Link feature with Playwright, including a sample GitHub Action configuration. This approach will help you validate the functionality of your Magic Login Link and identify any potential issues."
+summary: "I'm going to walk you through how to test Supabase's Magic Login Links with Playwright, plus I'll throw in a GitHub Action setup you can use. This will help you make sure your Magic Login actually works and catch any bugs before they hit production."
 title: 'Testing Supabase Magic Login in CI with Playwright'
 ---
 
