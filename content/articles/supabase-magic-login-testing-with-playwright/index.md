@@ -11,38 +11,40 @@ summary: "I'll share a technique for testing Supabase's Magic Login Link feature
 title: 'Testing Supabase Magic Login in CI with Playwright'
 ---
 
-I enjoy putting extra effort into my hobby apps. Recently I've been working on a
-little hobby app using [SvelteKit](https://kit.svelte.dev/) and
-[Supabase](https://supabase.com/). One aspect that I value is proper automated
-testing. It not only ingrains good practices but also allows me to experiment
-with tools that diverge from my daily routine.
+I'm a bit of a perfectionist when it comes to my side projects. I've been playing 
+around with little hobby app using [SvelteKit](https://kit.svelte.dev/) and
+[Supabase](https://supabase.com/). One thing I don't compromise on is automated
+tests. Not only does it keep me honest about writing good code, but it's also a 
+great excuse to play around with tools I don't get to use at my day job.
 
-I'll discuss how I handle authentication in my CI test runs using
-[GitHub Actions](https://github.com/features/actions), specifically by combining
-[Supabase Local Development](https://supabase.com/docs/guides/cli/local-development)
-and [Playwright](https://playwright.dev/). This approach allows me to authenticate
-and test my app easily.
+Here's how I tackled one particular challenge: getting authentication to work smoothly 
+in my CI pipeline with [GitHub Actions](https://github.com/features/actions). The solution 
+ended up being pretty elegant – I combined 
+[Supabase Local Development](https://supabase.com/docs/guides/cli/local-development) 
+with [Playwright](https://playwright.dev/) to create a testing setup that actually works 
+without jumping through hoops.
 
 ## Requirements
 
-The only actual requirement is a Supabase app using Magic Login for authentication.
-I'll use Supabase CLI to start the database in CI rather than connecting to a
-live Supabase instance. It would help if you were familiar with using the
-Supabase CLI for local development.
+You'll need a Supabase app with Magic Login authentication set up. For this guide, 
+I'm using the Supabase CLI to spin up a local database for CI instead of hitting 
+a live Supabase instance. It'll be helpful if you've worked with the Supabase CLI 
+for local development before.
 
 {{< note >}}
-There isn't much to test for my app before logging in, so I've set this up
-using a global setup function that runs before all parallel runs in
-Playwright. I don't have any issues with race conditions or multiple tests
-trying to authenticate simultaneously. Your mileage may vary if you use the
-resulting code inside a test instead of a global setup function.
+Since my app doesn't have much functionality before users log in, I've configured this 
+authentication flow to run in Playwright's global setup function - it executes 
+once before all the parallel test runs kick off. I haven't run into any race conditions 
+or conflicts with multiple tests trying to authenticate at the same time, but your experience 
+might be different if you put this code directly inside individual tests rather than using 
+the global setup approach.
 {{< /note >}}
 
 ## Supabase Local Development
 
-The Supabase docs have a helpful guide for running Supabase locally on your
-machine; [you can read that here](https://supabase.com/docs/guides/cli/local-development).
-Once you're familiar, start the local container for your app:
+The Supabase docs have a solid guide for getting Supabase running locally - 
+[check it out here](https://supabase.com/docs/guides/cli/local-development). 
+Once you've got the hang of it, fire up the local container for your app:
 
 ```
 $ npx supabase start
@@ -56,10 +58,9 @@ Started supabase local development setup.
 service_role key: xxx
 ```
 
-The main thing to keep a note of here is the InBucket URL.
-[InBucket](https://inbucket.org/) catches any emails that Supabase would usually
-send to a user, and we'll use this to get the magic link or one-time passcode (OTP)
-for our user.
+The key thing here is that InBucket URL - note it down somewhere. [InBucket](https://inbucket.org/) 
+is basically an email catcher that grabs all the emails Supabase would normally send out to 
+users. We'll use it to snag the magic link or OTP that gets generated for our test user.
 
 ## Installing Playwright
 
@@ -369,16 +370,11 @@ playwright:
 
 ## Summary
 
-We've made some significant progress in our testing process.
+We've covered a lot of ground with our testing setup:
 
-1. We've set up a local Supabase instance, both on our local machines and in CI
-   environments.
-2. We've also learned how to send and interact with emails locally using Supabase.
-3. We've written a global setup function for Playwright that runs before our tests
-   and ensures that all tests run with the user's session already initialized.
-4. We've even run a short Playwright test to verify that everything is working
-   together.
+1. Got a local Supabase instance running both locally and in CI
+2. Figured out how to send and grab emails locally through Supabase
+3. Built a Playwright global setup function that handles user authentication before any tests run
+4. Ran a quick test to make sure everything plays nicely together
 
-From here, you can continue testing the rest of your app. The global setup
-function may interfere if you need to test the unauthenticated portion of your
-app. You can create a separate suite of tests without it.
+Now you can go ahead and test the rest of your app. Just heads up - if you need to test parts of your app that don't require authentication, this global setup might get in the way. You can always create a separate test suite that skips the setup function for those scenarios.
