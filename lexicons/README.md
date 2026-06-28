@@ -54,3 +54,27 @@ TID rkey. Required: `url`, `name`.
 - `description`: `Software engineer building delightful things on the web.`
 - `preferences.showInDiscover`: `true`
 - `icon`, `basicTheme`: optional, deferred
+
+## `dev.bekapod.project` (Projects + Making)
+
+One record collection backs both home-page sections, distinguished by `type`: `software` renders under **Projects**, `knit`/`grow` under **Making**. TID rkeys. Required: `type`, `title`.
+
+| Field         | Req?     | Type                                          | Notes                                                          |
+| ------------- | -------- | --------------------------------------------- | -------------------------------------------------------------- |
+| `type`        | required | string enum (`software`/`knit`/`grow`)        | discriminator; drives the section + accent colour at render    |
+| `title`       | required | string                                        | the tile's name; stands even if `link` rots                    |
+| `description` | optional | string                                        | one-line summary (project desc / making caption)               |
+| `status`      | optional | string enum (`active`/`completed`/`archived`) | lifecycle state; absence implies active                        |
+| `startedAt`   | optional | datetime                                      | when the work began (first commit / cast-on / planting)        |
+| `completedAt` | optional | datetime                                      | when finished, if it is                                        |
+| `image`       | optional | blob, `image/*`, < 1MB                        | one cover; render falls back to a generated banner when absent |
+| `link`        | optional | uri                                           | canonical home (GitHub / Ravelry)                              |
+| `tags`        | optional | string[] (≤ 10)                               | mono chips; mirrors `site.standard.document.tags`              |
+
+### Decisions
+
+- **One collection, `type`-filtered:** Projects = `type === 'software'`; Making = `type in ('knit','grow')` — same shape, two filtered views.
+- **`type` is a closed enum, not an open `knownValues` string.** Adding a craft (sewing, crochet) is a one-line enum edit + `pnpm lex` regen — existing records stay valid, nothing is republished. The payoff is a strict TS union, so `switch (type)` in render/seed code is exhaustive (a missed craft is a `tsc` error). The trade is the literal "no schema change" an open string would give.
+- **Presentation is derived, not stored.** No `accent`/colour and no separate `kind` field — `type` (plus item index, for the project banner rotation) drives the section and colour at render, mirroring derived `readTime`/`accent` on documents.
+- **No `createdAt`.** The TID rkey already encodes record-creation time; `startedAt`/`completedAt` carry the _semantic_ dates of the work itself.
+- **Self-sufficient tiles.** `title` required, `image`/`link` optional, so a tile still stands (name + line) if the outbound link rots.
