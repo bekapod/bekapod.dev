@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/*
+ * Tailwind v4 is configured here in CSS, not a JS config file.
+ * Customise your design tokens inside an @theme block, e.g.:
+ *
+ * @theme {
+ *   --color-brand: oklch(0.65 0.2 250);
+ *   --font-sans: 'Inter', sans-serif;
+ * }
+ */

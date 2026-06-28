@@ -6,7 +6,7 @@ import globals from 'globals';
 
 export default tseslint.config(
   // Don't lint build output, Astro's generated types, or deps.
-  { ignores: ['dist/', '.astro/', 'node_modules/'] },
+  { ignores: ['dist/', '.astro/', '.netlify/', 'node_modules/'] },
 
   // Base JS recommended rules.
   js.configs.recommended,

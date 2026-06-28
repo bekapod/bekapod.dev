@@ -1,17 +1,17 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-  </body>
-</html>
+<Layout title="bekapod.dev">
+  <main class="mx-auto flex min-h-screen max-w-2xl flex-col justify-center gap-6 px-6 py-16">
+    <h1 class="text-4xl font-bold tracking-tight text-slate-900">Hello, Tailwind 👋</h1>
+    <article class="prose prose-slate">
+      <p>
+        This paragraph is styled by the <code>@tailwindcss/typography</code> plugin through the <code
+          >prose</code
+        > class — proof that core utilities and the plugin are both wired up. Replace all of this with
+        your real content.
+      </p>
+    </article>
+  </main>
+</Layout>
