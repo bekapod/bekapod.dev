@@ -7,3 +7,6 @@ node_modules
 
 # Secrets
 .env
+
+# Local PDS seed content (uncommitted; the PDS is the source of truth)
+content/projects/

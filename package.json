@@ -15,6 +15,7 @@
     "test": "vitest run",
     "pds:publication": "tsx scripts/pds/publication.ts",
     "pds:publish": "tsx scripts/pds/publish.ts",
+    "pds:project": "tsx scripts/pds/publish-project.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",

@@ -1,10 +1,10 @@
 import { parseArgs } from 'node:util';
 import { readFile, writeFile } from 'node:fs/promises';
-import { openAsBlob } from 'node:fs';
-import { basename, extname, join, resolve } from 'node:path';
+import { basename, join, resolve } from 'node:path';
 import matter from 'gray-matter';
 import { loadEnv } from './env.ts';
 import { connect, type Pds } from './client.ts';
+import { uploadImage } from './images.ts';
 import {
   assertRequiredFrontmatter,
   buildDocumentRecord,
@@ -20,31 +20,12 @@ const DOCUMENT_COLLECTION = 'site.standard.document';
 const MARKDOWN_FILE = 'index.md';
 const PLACEHOLDER_SITE = 'at://<did>/site.standard.publication/<rkey>';
 
-const MIME_BY_EXT: Record<string, string> = {
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.jpeg': 'image/jpeg',
-  '.webp': 'image/webp',
-  '.avif': 'image/avif',
-  '.gif': 'image/gif',
-};
-
 async function resolveSiteUri(pds: Pds): Promise<string> {
   const pubs = await pds.listRecords(PUBLICATION_COLLECTION);
   if (!pubs[0]) {
     throw new Error('No publication record found. Run `pnpm pds:publication` first.');
   }
   return pubs[0].uri;
-}
-
-async function uploadImage(pds: Pds, path: string) {
-  const mime = MIME_BY_EXT[extname(path).toLowerCase()];
-  if (!mime) throw new Error(`Unsupported image type: ${path}`);
-  const blob = await openAsBlob(path, { type: mime });
-  if (blob.size >= 1_000_000) {
-    throw new Error(`Image must be < 1MB: ${path} (${blob.size} bytes)`);
-  }
-  return pds.uploadBlob(blob);
 }
 
 async function main() {
