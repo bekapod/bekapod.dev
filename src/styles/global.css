@@ -1,12 +1,82 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
-/*
- * Tailwind v4 is configured here in CSS, not a JS config file.
- * Customise your design tokens inside an @theme block, e.g.:
- *
- * @theme {
- *   --color-brand: oklch(0.65 0.2 250);
- *   --font-sans: 'Inter', sans-serif;
- * }
- */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+:root,
+[data-theme='light'] {
+  --bg: #fbf4e9;
+  --dots: #ebdfcb;
+  --surface: #ffffff;
+  --line: #211b16;
+  --shadow: #211b16;
+  --text: #211b16;
+  --soft: #5c5249;
+  --muted: #9c8e78;
+  --chip: #fbf4e9;
+  --divider: #efe4cf;
+  --glass: rgba(251, 244, 233, 0.82);
+  --pha: #f1e7d4;
+  --phb: #e9dcc3;
+}
+
+[data-theme='dark'] {
+  --bg: #1b1611;
+  --dots: #2c2520;
+  --surface: #2a231c;
+  --line: #f4ead9;
+  --shadow: rgba(244, 234, 217, 0.2);
+  --text: #f4ead9;
+  --soft: #c7baa6;
+  --muted: #9f907a;
+  --chip: #15110d;
+  --divider: #3a322b;
+  --glass: rgba(27, 22, 17, 0.82);
+  --pha: #2a231c;
+  --phb: #221c16;
+}
+
+@theme {
+  --color-pink: #ff6bd6;
+  --color-coral: #ff5e5b;
+  --color-teal: #2ec4b6;
+  --color-yellow: #ffd23f;
+  --color-purple: #9b5de5;
+  --color-green: #7fb069;
+  --color-orange: #ff9f1c;
+  --color-blue: #3a86ff;
+  --color-ink: #211b16;
+
+  --radius-pill: 999px;
+  --radius-control: 10px;
+  --radius-chip: 6px;
+  --radius-chip-lg: 16px;
+  --radius-card: 18px;
+  --radius-card-lg: 22px;
+
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-dots: var(--dots);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-soft: var(--soft);
+  --color-muted: var(--muted);
+  --color-chip: var(--chip);
+  --color-divider: var(--divider);
+  --color-glass: var(--glass);
+  --color-pha: var(--pha);
+  --color-phb: var(--phb);
+
+  --shadow-sticker-sm: 1.5px 1.5px 0 var(--shadow);
+  --shadow-sticker-sm-hover: 1.5px 2.5px 0 var(--shadow);
+  --shadow-sticker: 3px 3px 0 var(--shadow);
+  --shadow-sticker-hover: 3px 4px 0 var(--shadow);
+  --shadow-sticker-lg: 4px 4px 0 var(--shadow);
+  --shadow-sticker-lg-hover: 4px 5px 0 var(--shadow);
+}
