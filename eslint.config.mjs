@@ -5,8 +5,8 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import globals from 'globals';
 
 export default tseslint.config(
-  // Don't lint build output, Astro's generated types, or deps.
-  { ignores: ['dist/', '.astro/', '.netlify/', 'node_modules/'] },
+  // Don't lint build output, generated types (Astro's + lexicon codegen), or deps.
+  { ignores: ['dist/', '.astro/', '.netlify/', 'node_modules/', 'src/lexicons/'] },
 
   // Base JS recommended rules.
   js.configs.recommended,
