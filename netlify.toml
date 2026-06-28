@@ -4,3 +4,8 @@
 
 [build.environment]
   NODE_VERSION = "24"
+
+[[headers]]
+  for = "/.well-known/site.standard.publication"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
