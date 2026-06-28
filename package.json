@@ -17,6 +17,7 @@
     "prepare": "lefthook install"
   },
   "dependencies": {
+    "@astrojs/netlify": "^8.0.0",
     "astro": "^7.0.3"
   },
   "devDependencies": {
