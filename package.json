@@ -2,6 +2,7 @@
   "name": "astro",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@11.9.0",
   "engines": {
     "node": ">=22.12.0"
   },
@@ -17,7 +18,6 @@
     "prepare": "lefthook install"
   },
   "dependencies": {
-    "@astrojs/netlify": "^8.0.0",
     "@fontsource-variable/hanken-grotesk": "^5.2.8",
     "@fontsource-variable/space-grotesk": "^5.2.10",
     "@fontsource/dm-mono": "^5.2.7",
