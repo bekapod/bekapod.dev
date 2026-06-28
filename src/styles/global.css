@@ -120,3 +120,19 @@
   --shadow-sticker-lg: 4px 4px 0 var(--shadow);
   --shadow-sticker-lg-hover: 4px 5px 0 var(--shadow);
 }
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100svh;
+    background-color: var(--bg);
+    background-image: radial-gradient(var(--dots) 1.2px, transparent 1.2px);
+    background-size: 30px 30px;
+    color: var(--text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+}
