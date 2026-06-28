@@ -90,7 +90,7 @@ export function buildDocumentRecord(input: BuildInput): Record<string, unknown> 
     title: fm.title,
     publishedAt: toIsoDatetime(fm.date),
     path: `/blog/${slug}`,
-    content: [{ $type: 'at.markpub.markdown', text: { markdown: body }, flavor: 'gfm' }],
+    content: { $type: 'at.markpub.markdown', text: { markdown: body }, flavor: 'gfm' },
     textContent: markdownToPlainText(body),
   };
 

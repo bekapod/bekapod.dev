@@ -1,3 +1,5 @@
+import * as v from '@atcute/lexicons/validations';
+import { mainSchema as docSchema } from '@atcute/standard-site/types/document';
 import { describe, expect, it } from 'vitest';
 import {
   buildDocumentRecord,
@@ -73,11 +75,16 @@ describe('buildDocumentRecord', () => {
       description: 'A short summary.',
       path: '/blog/example-post',
       tags: ['example', 'demo'],
-      content: [{ $type: 'at.markpub.markdown', text: { markdown: base.body }, flavor: 'gfm' }],
+      content: { $type: 'at.markpub.markdown', text: { markdown: base.body }, flavor: 'gfm' },
     });
     expect(rec.textContent).toContain('Some bold text.');
     expect(rec.blobs).toBeUndefined();
     expect(rec.coverImage).toBeUndefined();
+  });
+
+  it('produces a record that conforms to the site.standard.document schema', () => {
+    const rec = buildDocumentRecord({ frontmatter: fm, ...base });
+    expect(v.safeParse(docSchema, rec).ok).toBe(true);
   });
 
   it('includes blobs and coverImage when provided', () => {
