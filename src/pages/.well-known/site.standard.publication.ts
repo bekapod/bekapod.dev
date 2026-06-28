@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getPublicationUri } from '../../lib/atproto.ts';
+import { getPublicationUri } from '../../lib/pds/publication.ts';
 
 export const prerender = true;
 
