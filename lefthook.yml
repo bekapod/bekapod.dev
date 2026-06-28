@@ -1,0 +1,32 @@
+# https://lefthook.dev/configuration/
+#
+# Jobs run sequentially (no `parallel: true`) so ESLint fixes code issues first,
+# then Prettier has the final say on formatting. `stage_fixed: true` re-stages
+# any file a job rewrites, so fixes are included in the commit automatically.
+
+pre-commit:
+  jobs:
+    - name: eslint
+      glob:
+        - '*.js'
+        - '*.mjs'
+        - '*.cjs'
+        - '*.ts'
+        - '*.astro'
+      run: pnpm exec eslint --fix --no-warn-ignored {staged_files}
+      stage_fixed: true
+
+    - name: prettier
+      glob:
+        - '*.js'
+        - '*.mjs'
+        - '*.cjs'
+        - '*.ts'
+        - '*.astro'
+        - '*.json'
+        - '*.md'
+        - '*.yml'
+        - '*.yaml'
+        - '*.css'
+      run: pnpm exec prettier --write --ignore-unknown {staged_files}
+      stage_fixed: true
