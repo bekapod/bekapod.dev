@@ -1,4 +1,6 @@
 import removeMarkdown from 'remove-markdown';
+import type { Blob as AtBlob } from '@atcute/lexicons';
+import { requireFields, toIsoDatetime } from './frontmatter.ts';
 
 export interface PostFrontmatter {
   title: string;
@@ -11,7 +13,7 @@ export interface PostFrontmatter {
 
 export interface BlobEntry {
   name: string;
-  blob: unknown;
+  blob: AtBlob;
 }
 
 export interface BuildInput {
@@ -19,7 +21,7 @@ export interface BuildInput {
   slug: string;
   body: string;
   siteUri: string;
-  coverImage?: unknown;
+  coverImage?: AtBlob;
   blobs?: BlobEntry[];
   now: string;
 }
@@ -46,11 +48,6 @@ export function rewriteImageLinks(markdown: string, urlByPath: Record<string, st
   });
 }
 
-export function buildGetBlobUrl(service: string, did: string, cid: string): string {
-  const base = service.replace(/\/$/, '');
-  return `${base}/xrpc/com.atproto.sync.getBlob?did=${encodeURIComponent(did)}&cid=${cid}`;
-}
-
 export function markdownToPlainText(markdown: string): string {
   const withoutCode = markdown.replace(/```[\s\S]*?```/g, '');
   const withoutAlerts = withoutCode.replace(
@@ -62,25 +59,10 @@ export function markdownToPlainText(markdown: string): string {
     .trim();
 }
 
-export function assertRequiredFrontmatter(fm: PostFrontmatter): void {
-  const missing = (['title', 'date'] as const).filter((k) => !fm[k]);
-  if (missing.length > 0) {
-    throw new Error(`Missing required frontmatter: ${missing.join(', ')}`);
-  }
-}
-
-function toIsoDatetime(value: string): string {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) {
-    throw new Error(`Invalid date: ${value}`);
-  }
-  return date.toISOString();
-}
-
 export function buildDocumentRecord(input: BuildInput): Record<string, unknown> {
   const { frontmatter: fm, slug, body, siteUri, coverImage, blobs, now } = input;
 
-  assertRequiredFrontmatter(fm);
+  requireFields(fm, ['title', 'date']);
 
   const tags = fm.tags ?? [];
 

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import type { Blob as AtBlob } from '@atcute/lexicons';
 import { buildProjectRecord } from './project.ts';
 
 const fm = {
@@ -35,7 +36,7 @@ describe('buildProjectRecord', () => {
   });
 
   it('includes the image blob when provided', () => {
-    const blob = { $type: 'blob', ref: { $link: 'x' }, mimeType: 'image/png', size: 1 };
+    const blob: AtBlob = { $type: 'blob', ref: { $link: 'x' }, mimeType: 'image/png', size: 1 };
     const rec = buildProjectRecord({ frontmatter: fm, image: blob });
     expect(rec.image).toBe(blob);
   });

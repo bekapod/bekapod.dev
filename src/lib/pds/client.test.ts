@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
   blobCid,
-  buildGetBlobUrl,
   fetchAuthorFeed,
   listRecords,
   resolveDid,
@@ -31,20 +30,6 @@ function fakeFetch(responses: FakeResponse[]): { impl: FetchImpl; urls: string[]
   }) as unknown as FetchImpl;
   return { impl, urls };
 }
-
-describe('buildGetBlobUrl', () => {
-  it('builds a getBlob URL from host, did, and cid', () => {
-    expect(buildGetBlobUrl('https://pds.example', 'did:plc:abc', 'bafycid')).toBe(
-      'https://pds.example/xrpc/com.atproto.sync.getBlob?did=did%3Aplc%3Aabc&cid=bafycid',
-    );
-  });
-
-  it('strips a trailing slash from the host', () => {
-    expect(buildGetBlobUrl('https://pds.example/', 'did:plc:abc', 'bafycid')).toBe(
-      'https://pds.example/xrpc/com.atproto.sync.getBlob?did=did%3Aplc%3Aabc&cid=bafycid',
-    );
-  });
-});
 
 describe('blobCid', () => {
   it('extracts the $link cid from a blob ref', () => {

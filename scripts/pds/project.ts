@@ -1,3 +1,6 @@
+import type { Blob as AtBlob } from '@atcute/lexicons';
+import { requireFields, toIsoDatetime } from './frontmatter.ts';
+
 export const PROJECT_COLLECTION = 'dev.bekapod.project';
 
 const TYPES = ['software', 'knit', 'grow'];
@@ -18,28 +21,13 @@ export interface ProjectFrontmatter {
 
 export interface ProjectBuildInput {
   frontmatter: ProjectFrontmatter;
-  image?: unknown;
-}
-
-function toIsoDatetime(value: string): string {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) {
-    throw new Error(`Invalid date: ${value}`);
-  }
-  return date.toISOString();
-}
-
-export function assertRequiredFrontmatter(fm: ProjectFrontmatter): void {
-  const missing = (['type', 'title'] as const).filter((k) => !fm[k]);
-  if (missing.length > 0) {
-    throw new Error(`Missing required frontmatter: ${missing.join(', ')}`);
-  }
+  image?: AtBlob;
 }
 
 export function buildProjectRecord(input: ProjectBuildInput): Record<string, unknown> {
   const { frontmatter: fm, image } = input;
 
-  assertRequiredFrontmatter(fm);
+  requireFields(fm, ['type', 'title']);
 
   if (!TYPES.includes(fm.type)) {
     throw new Error(`Invalid type: ${fm.type} (expected ${TYPES.join(', ')})`);

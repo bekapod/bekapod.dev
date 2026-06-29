@@ -1,16 +1,13 @@
 import type { RawRecord, Repo } from './shapes.ts';
 
+export { buildGetBlobUrl } from './blob-url.ts';
+
 export const HANDLE = 'bekapod.dev';
 const HANDLE_RESOLVER = 'https://public.api.bsky.app';
 const PLC_DIRECTORY = 'https://plc.directory';
 const APPVIEW = 'https://public.api.bsky.app';
 
 export type FetchImpl = typeof fetch;
-
-export function buildGetBlobUrl(pdsHost: string, did: string, cid: string): string {
-  const base = pdsHost.replace(/\/$/, '');
-  return `${base}/xrpc/com.atproto.sync.getBlob?did=${encodeURIComponent(did)}&cid=${cid}`;
-}
 
 export function blobCid(blob: unknown): string | undefined {
   const ref = (blob as { ref?: { $link?: unknown } } | undefined)?.ref;

@@ -1,14 +1,14 @@
-import { parseArgs } from 'node:util';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { basename, join, resolve } from 'node:path';
 import matter from 'gray-matter';
+import { buildGetBlobUrl } from '../../src/lib/pds/blob-url.ts';
 import { loadEnv } from './env.ts';
 import { connect, type Pds } from './client.ts';
 import { uploadImage } from './images.ts';
+import { fireBuildHook, parsePublishArgs, publishRecord } from './cli.ts';
+import { requireFields } from './frontmatter.ts';
 import {
-  assertRequiredFrontmatter,
   buildDocumentRecord,
-  buildGetBlobUrl,
   extractLocalImagePaths,
   rewriteImageLinks,
   type BlobEntry,
@@ -19,6 +19,7 @@ import { PUBLICATION_COLLECTION } from './publication.ts';
 const DOCUMENT_COLLECTION = 'site.standard.document';
 const MARKDOWN_FILE = 'index.md';
 const PLACEHOLDER_SITE = 'at://<did>/site.standard.publication/<rkey>';
+const USAGE = 'Usage: pnpm pds:publish <post-dir> [--dry-run] [--no-build]';
 
 async function resolveSiteUri(pds: Pds): Promise<string> {
   const pubs = await pds.listRecords(PUBLICATION_COLLECTION);
@@ -29,36 +30,19 @@ async function resolveSiteUri(pds: Pds): Promise<string> {
 }
 
 async function main() {
-  const { values, positionals } = parseArgs({
-    allowPositionals: true,
-    options: { 'dry-run': { type: 'boolean' }, 'no-build': { type: 'boolean' } },
-  });
-
-  const dir = positionals[0];
-  if (!dir) {
-    throw new Error('Usage: pnpm pds:publish <post-dir> [--dry-run] [--no-build]');
-  }
+  const { path: dir, dryRun, noBuild } = parsePublishArgs(process.argv.slice(2), USAGE);
 
   const mdPath = join(dir, MARKDOWN_FILE);
   const slug = basename(resolve(dir));
-  const raw = await readFile(mdPath, 'utf8');
-  const parsed = matter(raw);
+  const parsed = matter(await readFile(mdPath, 'utf8'));
   const frontmatter = parsed.data as PostFrontmatter;
   const body = parsed.content.trim();
   const now = new Date().toISOString();
-  const dryRun = Boolean(values['dry-run']);
-  const noBuild = Boolean(values['no-build']);
 
-  assertRequiredFrontmatter(frontmatter);
+  requireFields(frontmatter, ['title', 'date']);
 
   if (dryRun) {
-    const record = buildDocumentRecord({
-      frontmatter,
-      slug,
-      body,
-      siteUri: PLACEHOLDER_SITE,
-      now,
-    });
+    const record = buildDocumentRecord({ frontmatter, slug, body, siteUri: PLACEHOLDER_SITE, now });
     console.log(JSON.stringify(record, null, 2));
     const images = [
       ...(frontmatter.cover ? [frontmatter.cover] : []),
@@ -84,41 +68,32 @@ async function main() {
     urlByPath[path] = buildGetBlobUrl(env.service, pds.did, blob.ref.$link);
     blobs.push({ name: path, blob });
   }
-  const content = rewriteImageLinks(body, urlByPath);
 
   const record = buildDocumentRecord({
     frontmatter,
     slug,
-    body: content,
+    body: rewriteImageLinks(body, urlByPath),
     siteUri,
     coverImage,
     blobs,
     now,
   });
 
-  let uri: string;
-  if (frontmatter.rkey) {
-    ({ uri } = await pds.putRecord(DOCUMENT_COLLECTION, frontmatter.rkey, record));
-  } else {
-    const created = await pds.createRecord(DOCUMENT_COLLECTION, record);
-    uri = created.uri;
-    try {
-      const updated = matter.stringify(body, { ...frontmatter, rkey: created.rkey });
-      await writeFile(mdPath, updated);
-    } catch (err) {
-      console.error(
-        `WARNING: record created at ${uri} but failed to write rkey back to ${mdPath}. ` +
-          `Add \`rkey: ${created.rkey}\` to the frontmatter manually to avoid a duplicate on the next run.`,
-      );
-      throw err;
-    }
-  }
-
+  const uri = await publishRecord({
+    pds,
+    collection: DOCUMENT_COLLECTION,
+    record,
+    rkey: frontmatter.rkey,
+    frontmatter,
+    sourceFile: mdPath,
+    // write back the original body, not the blob-rewritten one, so source stays portable
+    sourceContent: body,
+  });
   console.log(`Published: ${uri}`);
 
-  if (!noBuild && env.buildHook) {
-    const res = await fetch(env.buildHook, { method: 'POST' });
-    console.log(`Build hook: ${res.status}`);
+  if (!noBuild) {
+    const status = await fireBuildHook(env);
+    if (status !== null) console.log(`Build hook: ${status}`);
   }
 }
 

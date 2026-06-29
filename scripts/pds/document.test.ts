@@ -1,9 +1,9 @@
 import * as v from '@atcute/lexicons/validations';
+import type { Blob as AtBlob } from '@atcute/lexicons';
 import { mainSchema as docSchema } from '@atcute/standard-site/types/document';
 import { describe, expect, it } from 'vitest';
 import {
   buildDocumentRecord,
-  buildGetBlobUrl,
   extractLocalImagePaths,
   markdownToPlainText,
   rewriteImageLinks,
@@ -56,14 +56,6 @@ describe('rewriteImageLinks', () => {
   });
 });
 
-describe('buildGetBlobUrl', () => {
-  it('builds a getBlob url from service, did and cid', () => {
-    expect(buildGetBlobUrl('https://pds.example/', 'did:plc:abc', 'bafycid')).toBe(
-      'https://pds.example/xrpc/com.atproto.sync.getBlob?did=did%3Aplc%3Aabc&cid=bafycid',
-    );
-  });
-});
-
 describe('buildDocumentRecord', () => {
   it('maps frontmatter + body to a standard.document record', () => {
     const rec = buildDocumentRecord({ frontmatter: fm, ...base });
@@ -88,7 +80,7 @@ describe('buildDocumentRecord', () => {
   });
 
   it('includes blobs and coverImage when provided', () => {
-    const blob = { $type: 'blob', ref: { $link: 'x' }, mimeType: 'image/png', size: 1 };
+    const blob: AtBlob = { $type: 'blob', ref: { $link: 'x' }, mimeType: 'image/png', size: 1 };
     const rec = buildDocumentRecord({
       frontmatter: fm,
       ...base,

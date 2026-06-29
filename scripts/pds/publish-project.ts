@@ -1,39 +1,25 @@
-import { parseArgs } from 'node:util';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import matter from 'gray-matter';
 import { loadEnv } from './env.ts';
 import { connect } from './client.ts';
 import { uploadImage } from './images.ts';
-import {
-  assertRequiredFrontmatter,
-  buildProjectRecord,
-  PROJECT_COLLECTION,
-  type ProjectFrontmatter,
-} from './project.ts';
+import { fireBuildHook, parsePublishArgs, publishRecord } from './cli.ts';
+import { requireFields } from './frontmatter.ts';
+import { buildProjectRecord, PROJECT_COLLECTION, type ProjectFrontmatter } from './project.ts';
+
+const USAGE = 'Usage: pnpm pds:project <entry.md> [--dry-run] [--no-build]';
 
 async function main() {
-  const { values, positionals } = parseArgs({
-    allowPositionals: true,
-    options: { 'dry-run': { type: 'boolean' }, 'no-build': { type: 'boolean' } },
-  });
+  const { path: file, dryRun, noBuild } = parsePublishArgs(process.argv.slice(2), USAGE);
 
-  const file = positionals[0];
-  if (!file) {
-    throw new Error('Usage: pnpm pds:project <entry.md> [--dry-run] [--no-build]');
-  }
-
-  const raw = await readFile(file, 'utf8');
-  const parsed = matter(raw);
+  const parsed = matter(await readFile(file, 'utf8'));
   const frontmatter = parsed.data as ProjectFrontmatter;
-  const dryRun = Boolean(values['dry-run']);
-  const noBuild = Boolean(values['no-build']);
 
-  assertRequiredFrontmatter(frontmatter);
+  requireFields(frontmatter, ['type', 'title']);
 
   if (dryRun) {
-    const record = buildProjectRecord({ frontmatter });
-    console.log(JSON.stringify(record, null, 2));
+    console.log(JSON.stringify(buildProjectRecord({ frontmatter }), null, 2));
     const note = frontmatter.image ? `1 image (${frontmatter.image})` : 'no image';
     console.log(`[dry-run] no record written; would upload ${note}`);
     return;
@@ -48,29 +34,20 @@ async function main() {
 
   const record = buildProjectRecord({ frontmatter, image });
 
-  let uri: string;
-  if (frontmatter.rkey) {
-    ({ uri } = await pds.putRecord(PROJECT_COLLECTION, frontmatter.rkey, record));
-  } else {
-    const created = await pds.createRecord(PROJECT_COLLECTION, record);
-    uri = created.uri;
-    try {
-      const updated = matter.stringify(parsed.content, { ...frontmatter, rkey: created.rkey });
-      await writeFile(file, updated);
-    } catch (err) {
-      console.error(
-        `WARNING: record created at ${uri} but failed to write rkey back to ${file}. ` +
-          `Add \`rkey: ${created.rkey}\` to the frontmatter manually to avoid a duplicate on the next run.`,
-      );
-      throw err;
-    }
-  }
-
+  const uri = await publishRecord({
+    pds,
+    collection: PROJECT_COLLECTION,
+    record,
+    rkey: frontmatter.rkey,
+    frontmatter,
+    sourceFile: file,
+    sourceContent: parsed.content,
+  });
   console.log(`Published: ${uri}`);
 
-  if (!noBuild && env.buildHook) {
-    const res = await fetch(env.buildHook, { method: 'POST' });
-    console.log(`Build hook: ${res.status}`);
+  if (!noBuild) {
+    const status = await fireBuildHook(env);
+    if (status !== null) console.log(`Build hook: ${status}`);
   }
 }
 
