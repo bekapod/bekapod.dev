@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { THEME_KEY } from '../lib/theme.ts';
 
 import displayFont from '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url';
 import bodyFont from '@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2?url';
@@ -22,10 +23,10 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <script is:inline>
+    <script is:inline define:vars={{ THEME_KEY }}>
       let stored = null;
       try {
-        stored = localStorage.getItem('bekapod-theme');
+        stored = localStorage.getItem(THEME_KEY);
       } catch {
         // storage may be unavailable; proceed with stored = null
       }
