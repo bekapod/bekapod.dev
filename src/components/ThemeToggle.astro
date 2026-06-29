@@ -1,0 +1,37 @@
+---
+import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import Icon from './Icon.astro';
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  aria-label="Toggle dark mode"
+  aria-pressed="false"
+  class="inline-flex size-[34px] items-center justify-center rounded-control border-[1.5px] border-line bg-surface text-[18px] text-text shadow-sticker-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-line"
+>
+  <Icon icon={faMoon} class="dark:hidden" />
+  <Icon icon={faSun} class="hidden dark:block" />
+</button>
+
+<script>
+  import { applyTheme, nextTheme, type Theme } from '../lib/theme.ts';
+
+  const currentTheme = (): Theme =>
+    document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+
+  const toggles = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
+  const syncAll = () => {
+    const pressed = String(currentTheme() === 'dark');
+    toggles.forEach((button) => button.setAttribute('aria-pressed', pressed));
+  };
+
+  syncAll();
+
+  toggles.forEach((button) =>
+    button.addEventListener('click', () => {
+      applyTheme(nextTheme(currentTheme()));
+      syncAll();
+    }),
+  );
+</script>

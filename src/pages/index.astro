@@ -1,8 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
 ---
 
 <BaseLayout>
+  <div class="flex justify-end pt-4">
+    <ThemeToggle />
+  </div>
   <main class="flex min-h-[60vh] flex-col justify-center gap-4 py-16">
     <h1 class="font-display text-5xl font-bold text-text">
       bekapod<span class="text-pink">.</span>

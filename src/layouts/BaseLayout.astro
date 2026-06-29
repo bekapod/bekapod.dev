@@ -23,9 +23,18 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <script is:inline>
-      const stored = localStorage.getItem('bekapod-theme');
+      let stored = null;
+      try {
+        stored = localStorage.getItem('bekapod-theme');
+      } catch {
+        // storage may be unavailable; proceed with stored = null
+      }
       const theme =
-        stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        stored === 'light' || stored === 'dark'
+          ? stored
+          : matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
       document.documentElement.dataset.theme = theme;
       document.documentElement.style.colorScheme = theme;
     </script>

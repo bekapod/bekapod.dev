@@ -136,3 +136,11 @@
     -webkit-font-smoothing: antialiased;
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    transition:
+      background 0.3s,
+      color 0.3s;
+  }
+}
