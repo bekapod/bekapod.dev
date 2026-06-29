@@ -30,3 +30,9 @@ pre-commit:
         - '*.css'
       run: pnpm exec prettier --write --ignore-unknown {staged_files}
       stage_fixed: true
+
+    - name: astro
+      run: pnpm exec astro check
+
+    - name: test
+      run: pnpm exec vitest run
