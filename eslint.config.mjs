@@ -3,8 +3,9 @@ import tseslint from 'typescript-eslint';
 import eslintPluginAstro from 'eslint-plugin-astro';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import globals from 'globals';
+import { defineConfig } from 'eslint/config';
 
-export default tseslint.config(
+export default defineConfig(
   // Don't lint build output, generated types (Astro's + lexicon codegen), or deps.
   { ignores: ['dist/', '.astro/', '.netlify/', 'node_modules/', 'src/lexicons/'] },
 
