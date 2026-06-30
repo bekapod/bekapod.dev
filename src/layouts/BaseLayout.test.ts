@@ -30,6 +30,20 @@ describe('BaseLayout', () => {
     expect(headerIdx).toBeLessThan(containerIdx);
   });
 
+  it('renders the footer slot full-bleed, after the centered container', async () => {
+    const html = await render({
+      default: '<main data-test-body></main>',
+      footer: '<footer data-test-footer></footer>',
+    });
+
+    const containerIdx = html.indexOf('max-width');
+    const footerIdx = html.indexOf('data-test-footer');
+
+    expect(footerIdx).toBeGreaterThan(-1);
+    // the footer lands after the max-width wrapper, so its dark fill spans the viewport
+    expect(footerIdx).toBeGreaterThan(containerIdx);
+  });
+
   it('paints three decorative gradient blobs hidden from assistive tech', async () => {
     const html = await render();
 

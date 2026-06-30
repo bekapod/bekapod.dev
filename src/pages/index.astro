@@ -8,6 +8,7 @@ import Projects from '../components/Projects.astro';
 import Making from '../components/Making.astro';
 import Links from '../components/Links.astro';
 import Now from '../components/Now.astro';
+import Footer from '../components/Footer.astro';
 import TerminalCard from '../components/TerminalCard.astro';
 import { getNotes } from '../lib/pds/notes.ts';
 import { getBlogPosts } from '../lib/pds/documents.ts';
@@ -39,4 +40,5 @@ const [notes, posts, { projects, making }] = await Promise.all([
       <Now rows={now} />
     </div>
   </main>
+  <Footer slot="footer" />
 </BaseLayout>

@@ -1,0 +1,64 @@
+---
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { profiles } from '../data/profiles';
+import Icon from './Icon.astro';
+
+const pills = [
+  { ...profiles.github, hover: 'cream' },
+  { ...profiles.bluesky, hover: 'blue' },
+  { ...profiles.ravelry, hover: 'coral' },
+  { ...profiles.rss, hover: 'orange' },
+] as const;
+
+const HOVER = {
+  cream: 'hover:border-[#FBF4E9] hover:text-[#FBF4E9]',
+  blue: 'hover:border-blue hover:text-blue',
+  coral: 'hover:border-coral hover:text-coral',
+  orange: 'hover:border-orange hover:text-orange',
+} as const;
+---
+
+<footer
+  id="contact"
+  aria-labelledby="contact-heading"
+  class="mt-[30px] border-t-[1.5px] border-line bg-ink px-[clamp(16px,4vw,40px)] pt-[clamp(48px,7vw,80px)] pb-10 text-[#FBF4E9]"
+>
+  <div class="mx-auto max-w-[900px] text-center">
+    <h2
+      id="contact-heading"
+      class="mb-[26px] font-display text-[clamp(30px,5vw,48px)] font-bold tracking-[-1px] text-yellow"
+    >
+      say hello!
+    </h2>
+
+    <a
+      href={profiles.bluesky.href}
+      class="inline-flex items-center justify-center gap-2 rounded-pill border-[1.5px] border-[#FBF4E9] bg-blue px-7 py-[13px] text-base font-bold text-white no-underline shadow-[2.5px_2.5px_0_#FF6BD6] transition-[translate,box-shadow] duration-200 ease-out hover:translate-x-[6px] hover:shadow-[4px_4px_0_#FF6BD6] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FBF4E9]"
+    >
+      find me on Bluesky
+      <Icon icon={faArrowRight} />
+    </a>
+
+    <div class="mt-[30px] flex flex-wrap justify-center gap-2.5">
+      {
+        pills.map((pill) => (
+          <a
+            href={pill.href}
+            class:list={[
+              'rounded-pill border-2 border-[#4A413A] px-[15px] py-1.5 text-sm font-semibold text-[#FBF4E9] no-underline',
+              'transition-colors duration-200',
+              'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FBF4E9]',
+              HOVER[pill.hover],
+            ]}
+          >
+            {pill.name}
+          </a>
+        ))
+      }
+    </div>
+
+    <p class="mt-[30px] font-mono text-xs text-[#7A6F62]">
+      built with love, html, a lot of css &amp; the ATmosphere &middot; &copy; 2026 bekapod.dev
+    </p>
+  </div>
+</footer>
