@@ -12,7 +12,7 @@ describe('Tag', () => {
     expect(html).toContain('<span');
     expect(html).toContain('inline-block');
     expect(html).toContain('font-mono');
-    expect(html).toContain('font-bold');
+    expect(html).toContain('font-medium');
     expect(html).toContain('border-line');
     expect(html).not.toContain('border-[1.5px]');
     expect(html).toContain('bg-chip');
