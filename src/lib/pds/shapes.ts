@@ -31,6 +31,7 @@ export interface MakingItem {
   kind: 'knit' | 'grow';
   title: string;
   caption?: string;
+  link?: string;
   imageUrl?: string;
 }
 

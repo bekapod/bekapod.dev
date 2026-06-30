@@ -1,0 +1,70 @@
+---
+import { accentAt } from '../lib/accent-cycle';
+import type { MakingItem } from '../lib/pds/shapes';
+import SectionHeader from './SectionHeader.astro';
+import StickerCard from './StickerCard.astro';
+import Tag from './Tag.astro';
+
+interface Props {
+  making: MakingItem[];
+}
+
+const { making } = Astro.props;
+
+const KIND_ACCENT = { knit: 'coral', grow: 'green' } as const;
+---
+
+<section
+  id="making"
+  aria-labelledby="making-heading"
+  class="pt-[clamp(48px,7vw,90px)] pb-[clamp(24px,3vw,36px)]"
+>
+  <SectionHeader
+    as="h2"
+    id="making-heading"
+    label="making"
+    color="green"
+    subtitle="things I make with my hands, away from the keyboard"
+  />
+
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-[18px]">
+    {
+      making.map((item, i) => {
+        const accent = accentAt(i, 'making');
+        const cardProps = item.link
+          ? { as: 'a' as const, href: item.link, interactive: true }
+          : { as: 'div' as const };
+        return (
+          <StickerCard
+            {...cardProps}
+            radius="card-lg"
+            padding="none"
+            class="overflow-hidden text-text no-underline"
+          >
+            <div class="relative border-b-[1.5px] border-line">
+              <div
+                aria-hidden="true"
+                class="h-[180px]"
+                style={`background:repeating-linear-gradient(135deg,var(--color-${accent}),var(--color-${accent}) 13px,var(--line) 13px,var(--line) 15px)`}
+              />
+              <Tag
+                color={KIND_ACCENT[item.kind]}
+                radius="lg"
+                class="absolute top-3 left-3 border-[1.5px] font-bold shadow-sticker-sm"
+              >
+                {item.kind}
+              </Tag>
+            </div>
+
+            <div class="px-4 pt-[15px] pb-[17px]">
+              <h3 class="mb-1.5 font-display text-[20px] leading-tight font-bold">{item.title}</h3>
+              {item.caption && (
+                <p class="text-sm leading-[1.5] text-pretty text-soft">{item.caption}</p>
+              )}
+            </div>
+          </StickerCard>
+        );
+      })
+    }
+  </div>
+</section>

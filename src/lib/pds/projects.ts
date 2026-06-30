@@ -48,6 +48,7 @@ export function toProjects(
         kind: project.type,
         title: project.title,
         caption: project.description,
+        link: project.link,
         imageUrl,
       });
     }

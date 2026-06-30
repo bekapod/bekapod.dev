@@ -60,13 +60,27 @@ describe('toProjects', () => {
   });
 
   it('maps knit and grow into the making list', () => {
-    const knit = proj({ type: 'knit', title: 'wonky socks', description: 'warm.' }, '3kbb');
+    const knit = proj(
+      {
+        type: 'knit',
+        title: 'wonky socks',
+        description: 'warm.',
+        link: 'https://www.ravelry.com/projects/bekapod/wonky-socks',
+      },
+      '3kbb',
+    );
     const grow = proj({ type: 'grow', title: 'tomatoes' }, '3kaa');
     const { projects, making } = toProjects([knit, grow], repo);
     expect(projects).toEqual([]);
     expect(making).toEqual([
-      { kind: 'knit', title: 'wonky socks', caption: 'warm.', imageUrl: undefined },
-      { kind: 'grow', title: 'tomatoes', caption: undefined, imageUrl: undefined },
+      {
+        kind: 'knit',
+        title: 'wonky socks',
+        caption: 'warm.',
+        link: 'https://www.ravelry.com/projects/bekapod/wonky-socks',
+        imageUrl: undefined,
+      },
+      { kind: 'grow', title: 'tomatoes', caption: undefined, link: undefined, imageUrl: undefined },
     ]);
   });
 
