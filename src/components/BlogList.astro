@@ -1,0 +1,89 @@
+---
+import { accentAt } from '../lib/accent-cycle';
+import { accentTextColor, type Accent } from '../lib/accent';
+import { formatDate } from '../lib/format-date';
+import type { BlogPost } from '../lib/pds/shapes';
+import SectionHeader from './SectionHeader.astro';
+import StickerCard from './StickerCard.astro';
+
+interface Props {
+  posts: BlogPost[];
+}
+
+const { posts } = Astro.props;
+
+const BACKGROUNDS: Record<Accent, string> = {
+  pink: 'bg-pink',
+  coral: 'bg-coral',
+  teal: 'bg-teal',
+  yellow: 'bg-yellow',
+  purple: 'bg-purple',
+  green: 'bg-green',
+  orange: 'bg-orange',
+  blue: 'bg-blue',
+  ink: 'bg-ink',
+};
+---
+
+<section
+  id="blog"
+  aria-labelledby="blog-heading"
+  class="mx-auto max-w-[1000px] pt-[clamp(48px,7vw,90px)] pb-[clamp(24px,3vw,36px)]"
+>
+  <SectionHeader
+    as="h2"
+    id="blog-heading"
+    label="blog"
+    color="coral"
+    subtitle="longer reads, when a note isn't enough."
+  />
+
+  <div class="flex flex-col gap-[18px]">
+    {
+      posts.map((post, i) => {
+        const accent = accentAt(i);
+        const num = String(i + 1).padStart(2, '0');
+        const category = post.tags[0];
+        return (
+          <StickerCard
+            as="a"
+            href={`/blog/${post.slug}`}
+            interactive
+            radius="card-lg"
+            padding="none"
+            class="grid grid-cols-[auto_1fr] items-center gap-[clamp(14px,3vw,28px)] p-[clamp(14px,2.5vw,22px)] text-text no-underline"
+          >
+            <span
+              class:list={[
+                'grid size-[clamp(58px,9vw,82px)] place-items-center rounded-chip-lg border-[1.5px] border-line font-display text-[clamp(26px,4vw,38px)] leading-none font-bold shadow-sticker-sm',
+                BACKGROUNDS[accent],
+                accentTextColor(accent) === 'white' ? 'text-white' : 'text-ink',
+              ]}
+            >
+              {num}
+            </span>
+
+            <span>
+              {category && (
+                <span class="mb-[7px] inline-block rounded-chip bg-text px-[9px] py-[3px] text-[11px] font-bold tracking-wide text-surface uppercase">
+                  {category}
+                </span>
+              )}
+              <span class="block font-display text-[clamp(20px,3vw,28px)] leading-[1.1] font-bold tracking-[-0.5px]">
+                {post.title}
+              </span>
+              {post.excerpt && (
+                <span class="mt-1.5 block text-sm leading-[1.5] text-pretty text-soft">
+                  {post.excerpt}
+                </span>
+              )}
+              <span class="mt-2 block font-mono text-xs text-muted">
+                <time datetime={post.date}>{formatDate(post.date)}</time> · {post.readTime} min read
+              </span>
+            </span>
+          </StickerCard>
+        );
+      })
+    }
+  </div>
+</section>

@@ -1,7 +1,7 @@
 ---
 import { faBluesky } from '@fortawesome/free-brands-svg-icons';
 import { faHeart, faReply, faRetweet } from '@fortawesome/free-solid-svg-icons';
-import { noteAccent } from '../lib/note-accent';
+import { accentAt } from '../lib/accent-cycle';
 import { relativeTime } from '../lib/relative-time';
 import type { Note } from '../lib/pds/shapes';
 import Icon from './Icon.astro';
@@ -38,11 +38,11 @@ const BLUESKY_URL = 'https://bsky.app/profile/bekapod.dev';
         <StickerCard interactive padding="sm" class="mb-[18px] [break-inside:avoid]">
           <div class="mb-2.5 flex items-center gap-2.5">
             {note.tag ? (
-              <Tag label={note.tag} color={noteAccent(i)} radius="lg" />
+              <Tag label={note.tag} color={accentAt(i)} radius="lg" />
             ) : (
               <span
                 class="size-[18px] rounded-full border border-line"
-                style={`background:var(--color-${noteAccent(i)})`}
+                style={`background:var(--color-${accentAt(i)})`}
                 aria-hidden="true"
               />
             )}

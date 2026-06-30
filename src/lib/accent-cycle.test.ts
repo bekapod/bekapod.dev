@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { noteAccent, NOTE_ACCENTS } from './note-accent';
+import { accentAt, ACCENT_CYCLE } from './accent-cycle';
 
-describe('noteAccent', () => {
+describe('accentAt', () => {
   it('walks the decorative sequence by position', () => {
-    expect(NOTE_ACCENTS.map((_, i) => noteAccent(i))).toEqual([
+    expect(ACCENT_CYCLE.map((_, i) => accentAt(i))).toEqual([
       'pink',
       'purple',
       'teal',
@@ -14,7 +14,7 @@ describe('noteAccent', () => {
   });
 
   it('wraps back to the start once the sequence is exhausted', () => {
-    expect(noteAccent(NOTE_ACCENTS.length)).toBe('pink');
-    expect(noteAccent(NOTE_ACCENTS.length + 1)).toBe('purple');
+    expect(accentAt(ACCENT_CYCLE.length)).toBe('pink');
+    expect(accentAt(ACCENT_CYCLE.length + 1)).toBe('purple');
   });
 });
