@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import StickerCard from '../components/StickerCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import SectionBadge from '../components/SectionBadge.astro';
 ---
 
 <BaseLayout>
@@ -14,14 +16,32 @@ import StickerCard from '../components/StickerCard.astro';
     </h1>
     <p class="max-w-[44ch] text-soft">Placeholder</p>
 
-    <section class="grid gap-4 sm:grid-cols-2">
-      <StickerCard>
-        <p class="text-soft">Static card · default radius &amp; shadow</p>
-      </StickerCard>
-      <StickerCard as="a" href="#" interactive radius="card-lg" shadow="lg">
-        <p class="font-display font-bold text-text">Interactive card</p>
-        <p class="text-soft">Hover to lift &amp; deepen the shadow</p>
-      </StickerCard>
+    <section aria-labelledby="notes-heading">
+      <SectionHeader
+        as="h2"
+        id="notes-heading"
+        label="notes"
+        color="pink"
+        subtitle="little thoughts, posted straight to Bluesky"
+      />
+      <div class="grid gap-4 sm:grid-cols-2">
+        <StickerCard>
+          <p class="text-soft">Static card · default radius &amp; shadow</p>
+        </StickerCard>
+        <StickerCard as="a" href="#" interactive radius="card-lg" shadow="lg">
+          <p class="font-display font-bold text-text">Interactive card</p>
+          <p class="text-soft">Hover to lift &amp; deepen the shadow</p>
+        </StickerCard>
+      </div>
     </section>
+
+    <div class="flex flex-wrap gap-3">
+      <SectionBadge label="notes" color="pink" />
+      <SectionBadge label="blog" color="coral" />
+      <SectionBadge label="projects" color="teal" />
+      <SectionBadge label="making" color="green" textColor="ink" />
+      <SectionBadge label="now" color="purple" />
+      <SectionBadge label="links" color="yellow" textColor="ink" />
+    </div>
   </main>
 </BaseLayout>

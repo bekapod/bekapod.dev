@@ -1,0 +1,53 @@
+---
+import type { HTMLTag, Polymorphic } from 'astro/types';
+
+type Accent = 'pink' | 'coral' | 'teal' | 'yellow' | 'purple' | 'green' | 'orange' | 'blue' | 'ink';
+type TextColor = 'white' | 'ink';
+
+type Props<Tag extends HTMLTag = 'span'> = Polymorphic<{ as: Tag }> & {
+  /** The pill text. A default slot overrides it when richer content is needed. */
+  label?: string;
+  /** Accent background token. */
+  color?: Accent;
+  /** Foreground colour for legible text on the accent. */
+  textColor?: TextColor;
+};
+
+const BACKGROUNDS: Record<Accent, string> = {
+  pink: 'bg-pink',
+  coral: 'bg-coral',
+  teal: 'bg-teal',
+  yellow: 'bg-yellow',
+  purple: 'bg-purple',
+  green: 'bg-green',
+  orange: 'bg-orange',
+  blue: 'bg-blue',
+  ink: 'bg-ink',
+};
+
+const TEXT_COLORS: Record<TextColor, string> = {
+  white: 'text-white',
+  ink: 'text-ink',
+};
+
+const {
+  as: Tag = 'span',
+  label,
+  color = 'pink',
+  textColor = 'white',
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<Tag
+  class:list={[
+    'inline-block rounded-pill border-[1.5px] border-line px-4 py-1.5 text-sm font-bold shadow-sticker-sm',
+    BACKGROUNDS[color],
+    TEXT_COLORS[textColor],
+    className,
+  ]}
+  {...rest}
+>
+  <slot>{label}</slot>
+</Tag>
