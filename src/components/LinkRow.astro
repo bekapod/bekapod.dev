@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import type { IconDefinition } from '@fortawesome/fontawesome-common-types';
-import { accentTextColor } from '../lib/accent';
+import { accentBg, accentTextColor } from '../lib/accent';
 import Icon from './Icon.astro';
 
 type Accent = 'pink' | 'coral' | 'teal' | 'yellow' | 'purple' | 'green' | 'orange' | 'blue' | 'ink';
@@ -18,18 +18,6 @@ type Props = HTMLAttributes<'a'> & {
   sub?: string;
   /** Optional leading glyph; falls back to an outlined square. */
   icon?: IconDefinition;
-};
-
-const BACKGROUNDS: Record<Accent, string> = {
-  pink: 'bg-pink',
-  coral: 'bg-coral',
-  teal: 'bg-teal',
-  yellow: 'bg-yellow',
-  purple: 'bg-purple',
-  green: 'bg-green',
-  orange: 'bg-orange',
-  blue: 'bg-blue',
-  ink: 'bg-ink',
 };
 
 const TEXT_COLORS: Record<TextColor, string> = {
@@ -54,7 +42,7 @@ const {
     'flex w-full items-center gap-[14px] rounded-chip-lg border-[1.5px] border-line px-[18px] py-[14px] font-bold no-underline',
     'shadow-link hover:translate-x-[6px] hover:shadow-link-hover',
     'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-line',
-    BACKGROUNDS[color],
+    accentBg(color),
     TEXT_COLORS[textColor],
     className,
   ]}

@@ -1,6 +1,6 @@
 ---
 import { accentAt } from '../lib/accent-cycle';
-import { accentTextColor, type Accent } from '../lib/accent';
+import { accentBg, accentTextColor } from '../lib/accent';
 import { formatDate } from '../lib/format-date';
 import type { BlogPost } from '../lib/pds/shapes';
 import SectionHeader from './SectionHeader.astro';
@@ -11,18 +11,6 @@ interface Props {
 }
 
 const { posts } = Astro.props;
-
-const BACKGROUNDS: Record<Accent, string> = {
-  pink: 'bg-pink',
-  coral: 'bg-coral',
-  teal: 'bg-teal',
-  yellow: 'bg-yellow',
-  purple: 'bg-purple',
-  green: 'bg-green',
-  orange: 'bg-orange',
-  blue: 'bg-blue',
-  ink: 'bg-ink',
-};
 ---
 
 <section
@@ -56,7 +44,7 @@ const BACKGROUNDS: Record<Accent, string> = {
             <span
               class:list={[
                 'grid size-[clamp(58px,9vw,82px)] place-items-center rounded-chip-lg border-[1.5px] border-line font-display text-[clamp(26px,4vw,38px)] leading-none font-bold shadow-sticker-sm',
-                BACKGROUNDS[accent],
+                accentBg(accent),
                 accentTextColor(accent) === 'white' ? 'text-white' : 'text-ink',
               ]}
             >

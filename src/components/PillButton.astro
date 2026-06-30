@@ -1,6 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { accentTextColor } from '../lib/accent';
+import { accentBg, accentTextColor } from '../lib/accent';
 
 type Accent = 'pink' | 'coral' | 'teal' | 'yellow' | 'purple' | 'green' | 'orange' | 'blue' | 'ink';
 type TextColor = 'white' | 'ink';
@@ -15,18 +15,6 @@ type Props = HTMLAttributes<'a'> &
     /** Size step — drives padding, hard-shadow depth, and hover-lift together. */
     size?: Size;
   };
-
-const BACKGROUNDS: Record<Accent, string> = {
-  pink: 'bg-pink',
-  coral: 'bg-coral',
-  teal: 'bg-teal',
-  yellow: 'bg-yellow',
-  purple: 'bg-purple',
-  green: 'bg-green',
-  orange: 'bg-orange',
-  blue: 'bg-blue',
-  ink: 'bg-ink',
-};
 
 const TEXT_COLORS: Record<TextColor, string> = {
   white: 'text-white',
@@ -58,7 +46,7 @@ const buttonType = isLink ? undefined : (type ?? 'button');
   class:list={[
     'inline-flex cursor-pointer items-center justify-center gap-2 rounded-pill border-[1.5px] border-line font-bold no-underline',
     'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-line',
-    BACKGROUNDS[color],
+    accentBg(color),
     TEXT_COLORS[textColor],
     SIZES[size],
     className,
