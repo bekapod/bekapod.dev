@@ -1,13 +1,9 @@
 ---
-import { faBluesky, faGithub, faRavelry } from '@fortawesome/free-brands-svg-icons';
-import { faRss } from '@fortawesome/free-solid-svg-icons';
+import { profiles } from '../data/profiles';
 import Icon from './Icon.astro';
 import PillButton from './PillButton.astro';
 
-const GITHUB_URL = 'https://github.com/bekapod';
-const BLUESKY_URL = 'https://bsky.app/profile/bekapod.dev';
-const RAVELRY_URL = 'https://www.ravelry.com/people/bekapod';
-const RSS_URL = '/rss.xml';
+const pills = [profiles.github, profiles.bluesky, profiles.ravelry, profiles.rss];
 ---
 
 <section
@@ -37,18 +33,14 @@ const RSS_URL = '/rss.xml';
     </p>
 
     <div class="flex flex-wrap justify-center gap-2.5 md:justify-start">
-      <PillButton href={GITHUB_URL} color="ink">
-        <Icon icon={faGithub} />GitHub
-      </PillButton>
-      <PillButton href={BLUESKY_URL} color="blue">
-        <Icon icon={faBluesky} />Bluesky
-      </PillButton>
-      <PillButton href={RAVELRY_URL} color="coral">
-        <Icon icon={faRavelry} />Ravelry
-      </PillButton>
-      <PillButton href={RSS_URL} color="orange">
-        <Icon icon={faRss} />RSS
-      </PillButton>
+      {
+        pills.map((pill) => (
+          <PillButton href={pill.href} color={pill.color}>
+            <Icon icon={pill.icon} />
+            {pill.name}
+          </PillButton>
+        ))
+      }
     </div>
   </div>
 

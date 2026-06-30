@@ -1,5 +1,5 @@
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faStar } from '@fortawesome/free-solid-svg-icons';
 import { describe, expect, it } from 'vitest';
 import LinkRow from './LinkRow.astro';
 
@@ -58,7 +58,6 @@ describe('LinkRow', () => {
 
     expect(html).toContain('size-[14px]');
     expect(html).toContain('border-current');
-    expect(html).not.toContain('<svg');
   });
 
   it('renders the given icon instead of the square glyph', async () => {
@@ -70,10 +69,11 @@ describe('LinkRow', () => {
     expect(html).not.toContain('border-current');
   });
 
-  it('renders a decorative trailing arrow', async () => {
+  it('renders a decorative trailing arrow glyph', async () => {
     const html = await render({ href: '#' });
+    const arrowPath = faArrowRight.icon[4] as string;
 
-    expect(html).toContain('→');
+    expect(html).toContain(arrowPath);
     expect(html).toContain('aria-hidden="true"');
   });
 

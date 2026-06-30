@@ -1,6 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import type { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { accentBg, accentTextColor } from '../lib/accent';
 import Icon from './Icon.astro';
 
@@ -51,7 +52,7 @@ const {
 >
   {
     icon ? (
-      <Icon icon={icon} class="size-[14px] shrink-0" />
+      <Icon icon={icon} class="size-[18px] shrink-0" />
     ) : (
       <span class="size-[14px] shrink-0 rounded-[4px] border-2 border-current" aria-hidden="true" />
     )
@@ -60,7 +61,7 @@ const {
     <span class="block text-base">{label}</span>
     {sub && <span class="block text-xs font-medium opacity-80">{sub}</span>}
   </span>
-  <span class="text-xl" aria-hidden="true">→</span>
+  <Icon icon={faArrowRight} class="size-[18px] shrink-0" />
 </a>
 
 <style>
