@@ -1,6 +1,7 @@
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { describe, expect, it } from 'vitest';
 import Notes from './Notes.astro';
+import { accentCycle } from '../lib/accent-cycle';
 import type { Note } from '../lib/pds/shapes';
 
 const note = (overrides: Partial<Note> = {}): Note => ({
@@ -39,7 +40,7 @@ describe('Notes', () => {
     const html = await render([note({ tag: '' })]);
 
     expect(html).toContain('rounded-full');
-    expect(html).toContain('var(--color-pink)');
+    expect(html).toContain(`var(--color-${accentCycle('notes')[0]})`);
     // `text-[11px]` is unique to the Tag pill, so its absence confirms none rendered
     expect(html).not.toContain('text-[11px]');
   });
@@ -53,12 +54,13 @@ describe('Notes', () => {
     expect(html).toContain('datetime="2026-06-30T10:00:00.000Z"');
   });
 
-  it('rotates the tag accent by position', async () => {
+  it('rotates the tag accent by position along the seeded cycle', async () => {
     const html = await render([note(), note(), note()]);
+    const cycle = accentCycle('notes');
 
-    expect(html).toContain('bg-pink');
-    expect(html).toContain('bg-purple');
-    expect(html).toContain('bg-teal');
+    expect(html).toContain(`bg-${cycle[0]}`);
+    expect(html).toContain(`bg-${cycle[1]}`);
+    expect(html).toContain(`bg-${cycle[2]}`);
   });
 
   it('shows the three engagement counts', async () => {

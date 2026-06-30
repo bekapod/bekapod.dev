@@ -1,6 +1,7 @@
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { describe, expect, it } from 'vitest';
 import BlogList from './BlogList.astro';
+import { accentCycle } from '../lib/accent-cycle';
 import type { BlogPost } from '../lib/pds/shapes';
 
 const post = (overrides: Partial<BlogPost> = {}): BlogPost => ({
@@ -48,10 +49,11 @@ describe('BlogList', () => {
 
   it('rotates the badge accent and keeps AA-safe ink text on it', async () => {
     const html = await render([post({ slug: 'a' }), post({ slug: 'b' })]);
+    const cycle = accentCycle('blog');
 
-    // accentAt(0) = pink, accentAt(1) = purple — both take ink text via accentTextColor.
-    expect(html).toContain('bg-pink');
-    expect(html).toContain('bg-purple');
+    // The palette excludes `ink`, so every accent takes ink text via accentTextColor.
+    expect(html).toContain(`bg-${cycle[0]}`);
+    expect(html).toContain(`bg-${cycle[1]}`);
     expect(html).toContain('text-ink');
     expect(html).not.toContain('text-white');
   });
