@@ -3,13 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import TerminalCard from '../components/TerminalCard.astro';
-import StickerCard from '../components/StickerCard.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import SectionBadge from '../components/SectionBadge.astro';
-import PillButton from '../components/PillButton.astro';
-import Tag from '../components/Tag.astro';
-import LinkRow from '../components/LinkRow.astro';
-import { faAt, faCode, faRss } from '@fortawesome/free-solid-svg-icons';
 ---
 
 <BaseLayout>
@@ -18,88 +11,5 @@ import { faAt, faCode, faRss } from '@fortawesome/free-solid-svg-icons';
     <Hero>
       <TerminalCard />
     </Hero>
-
-    <section aria-labelledby="notes-heading">
-      <SectionHeader
-        as="h2"
-        id="notes-heading"
-        label="notes"
-        color="pink"
-        subtitle="little thoughts, posted straight to Bluesky"
-      />
-      <div class="grid gap-4 sm:grid-cols-2">
-        <StickerCard>
-          <p class="text-soft">Static card · default radius &amp; shadow</p>
-        </StickerCard>
-        <StickerCard as="a" href="#" interactive radius="card-lg" shadow="lg">
-          <p class="font-display font-bold text-text">Interactive card</p>
-          <p class="text-soft">Hover to lift &amp; deepen the shadow</p>
-        </StickerCard>
-      </div>
-    </section>
-
-    <div class="flex flex-wrap gap-3">
-      <SectionBadge label="notes" color="pink" />
-      <SectionBadge label="blog" color="coral" />
-      <SectionBadge label="projects" color="teal" />
-      <SectionBadge label="making" color="green" />
-      <SectionBadge label="now" color="purple" />
-      <SectionBadge label="links" color="yellow" />
-    </div>
-
-    <div class="flex flex-col gap-3">
-      <div class="flex flex-wrap items-center gap-2">
-        <Tag label="astro" />
-        <Tag label="typescript" />
-        <Tag label="tailwind" />
-      </div>
-      <div class="flex flex-wrap items-center gap-2">
-        <Tag label="shipped" color="pink" />
-        <Tag label="hot take" color="purple" />
-        <Tag label="til" color="coral" />
-      </div>
-      <div class="flex flex-wrap items-center gap-2">
-        <Tag label="knit" color="green" radius="lg" class="shadow-sticker-sm" />
-        <Tag label="grow" color="yellow" radius="lg" class="shadow-sticker-sm" />
-      </div>
-    </div>
-
-    <div class="flex flex-col gap-4">
-      <div class="flex flex-wrap items-center gap-3">
-        <PillButton href="#" color="ink">
-          <span class="size-2 rounded-full bg-yellow" aria-hidden="true"></span>GitHub
-        </PillButton>
-        <PillButton href="#" color="blue">
-          <span class="size-2 rounded-full bg-ink" aria-hidden="true"></span>Bluesky
-        </PillButton>
-        <PillButton href="#" color="orange">
-          <span class="size-2 rounded-full bg-ink" aria-hidden="true"></span>RSS
-        </PillButton>
-      </div>
-
-      <div class="flex flex-wrap items-center gap-3">
-        <PillButton color="purple" size="sm">say hi</PillButton>
-        <PillButton color="yellow" size="sm">&larr; back home</PillButton>
-        <PillButton href="#" color="blue" size="lg">view full feed on Bluesky &rarr;</PillButton>
-      </div>
-
-      <div class="flex">
-        <PillButton
-          href="#"
-          color="blue"
-          size="lg"
-          class="shadow-[2.5px_2.5px_0_var(--color-pink)] hover:shadow-[4px_4px_0_var(--color-pink)]"
-        >
-          find me on Bluesky &rarr;
-        </PillButton>
-      </div>
-    </div>
-
-    <div class="flex max-w-md flex-col gap-[13px]">
-      <LinkRow href="#" icon={faCode} color="ink" label="GitHub" sub="code & experiments" />
-      <LinkRow href="#" icon={faAt} color="blue" label="Bluesky" sub="@bekapod.dev" />
-      <LinkRow href="#" icon={faRss} color="orange" label="RSS feed" sub="subscribe to the blog" />
-      <LinkRow href="#" color="coral" label="Ravelry" sub="my knits & queue" />
-    </div>
   </main>
 </BaseLayout>
