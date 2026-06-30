@@ -1,0 +1,66 @@
+---
+import type { HTMLTag, Polymorphic } from 'astro/types';
+
+type Accent = 'pink' | 'coral' | 'teal' | 'yellow' | 'purple' | 'green' | 'orange' | 'blue' | 'ink';
+type Color = 'chip' | Accent;
+type TextColor = 'inherit' | 'white' | 'ink';
+type Radius = 'sm' | 'lg';
+
+type Props<Tag extends HTMLTag = 'span'> = Polymorphic<{ as: Tag }> & {
+  /** The chip text. A default slot overrides it when richer content is needed. */
+  label?: string;
+  /** Fill: the neutral chip background, or a solid accent token. */
+  color?: Color;
+  /** Foreground colour — inherits the theme text by default; pick white/ink on an accent fill. */
+  textColor?: TextColor;
+  /** Corner radius step: `sm` (6px) or `lg` (16px). */
+  radius?: Radius;
+};
+
+const BACKGROUNDS: Record<Color, string> = {
+  chip: 'bg-chip',
+  pink: 'bg-pink',
+  coral: 'bg-coral',
+  teal: 'bg-teal',
+  yellow: 'bg-yellow',
+  purple: 'bg-purple',
+  green: 'bg-green',
+  orange: 'bg-orange',
+  blue: 'bg-blue',
+  ink: 'bg-ink',
+};
+
+const TEXT_COLORS: Record<TextColor, string> = {
+  inherit: 'text-text',
+  white: 'text-white',
+  ink: 'text-ink',
+};
+
+const RADII: Record<Radius, string> = {
+  sm: 'rounded-chip',
+  lg: 'rounded-chip-lg',
+};
+
+const {
+  as: Tag = 'span',
+  label,
+  color = 'chip',
+  textColor = 'inherit',
+  radius = 'sm',
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<Tag
+  class:list={[
+    'inline-block border border-line px-[9px] py-0.5 font-mono text-[11px] font-bold',
+    BACKGROUNDS[color],
+    TEXT_COLORS[textColor],
+    RADII[radius],
+    className,
+  ]}
+  {...rest}
+>
+  <slot>{label}</slot>
+</Tag>

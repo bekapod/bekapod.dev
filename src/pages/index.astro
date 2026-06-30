@@ -5,6 +5,7 @@ import StickerCard from '../components/StickerCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import SectionBadge from '../components/SectionBadge.astro';
 import PillButton from '../components/PillButton.astro';
+import Tag from '../components/Tag.astro';
 ---
 
 <BaseLayout>
@@ -43,6 +44,23 @@ import PillButton from '../components/PillButton.astro';
       <SectionBadge label="making" color="green" textColor="ink" />
       <SectionBadge label="now" color="purple" />
       <SectionBadge label="links" color="yellow" textColor="ink" />
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-wrap items-center gap-2">
+        <Tag label="astro" />
+        <Tag label="typescript" />
+        <Tag label="tailwind" />
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <Tag label="shipped" color="pink" textColor="white" />
+        <Tag label="hot take" color="purple" textColor="white" />
+        <Tag label="til" color="coral" textColor="white" />
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <Tag label="knit" color="green" textColor="ink" radius="lg" class="shadow-sticker-sm" />
+        <Tag label="grow" color="yellow" textColor="ink" radius="lg" class="shadow-sticker-sm" />
+      </div>
     </div>
 
     <div class="flex flex-col gap-4">
