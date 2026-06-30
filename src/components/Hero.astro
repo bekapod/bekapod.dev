@@ -1,0 +1,56 @@
+---
+import { faBluesky, faGithub, faRavelry } from '@fortawesome/free-brands-svg-icons';
+import { faRss } from '@fortawesome/free-solid-svg-icons';
+import Icon from './Icon.astro';
+import PillButton from './PillButton.astro';
+
+const GITHUB_URL = 'https://github.com/bekapod';
+const BLUESKY_URL = 'https://bsky.app/profile/bekapod.dev';
+const RAVELRY_URL = 'https://www.ravelry.com/people/bekapod';
+const RSS_URL = '/rss.xml';
+---
+
+<section
+  id="hero"
+  aria-labelledby="hero-heading"
+  class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-center gap-[clamp(28px,5vw,56px)] py-[clamp(36px,7vw,84px)]"
+>
+  <div class="text-center sm:text-left">
+    <p class="mb-2 text-base font-bold tracking-[1.5px] uppercase">Hi, I'm</p>
+
+    <h1
+      id="hero-heading"
+      class="mb-[18px] font-display text-[clamp(52px,10vw,104px)] leading-[0.94] font-bold tracking-[-2.5px]"
+    >
+      bekapod<span class="text-pink" aria-hidden="true">.</span>
+    </h1>
+
+    <p
+      class="mx-auto mb-[14px] max-w-[34ch] text-[clamp(17px,2.4vw,21px)] font-semibold text-pretty sm:mx-0"
+    >
+      Software engineer building delightful things on the web.
+    </p>
+
+    <p class="mx-auto mb-6 max-w-[44ch] text-base leading-relaxed text-pretty text-soft sm:mx-0">
+      I write notes, the odd longer post, craft, and ship small hobby projects. Everything here is
+      stuff that brings me joy. Have a poke around.
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-2.5 sm:justify-start">
+      <PillButton href={GITHUB_URL} color="ink">
+        <Icon icon={faGithub} />GitHub
+      </PillButton>
+      <PillButton href={BLUESKY_URL} color="blue">
+        <Icon icon={faBluesky} />Bluesky
+      </PillButton>
+      <PillButton href={RAVELRY_URL} color="coral">
+        <Icon icon={faRavelry} />Ravelry
+      </PillButton>
+      <PillButton href={RSS_URL} color="orange">
+        <Icon icon={faRss} />RSS
+      </PillButton>
+    </div>
+  </div>
+
+  <slot />
+</section>

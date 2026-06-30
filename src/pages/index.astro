@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
 import StickerCard from '../components/StickerCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import SectionBadge from '../components/SectionBadge.astro';
@@ -12,11 +13,8 @@ import { faAt, faCode, faRss } from '@fortawesome/free-solid-svg-icons';
 
 <BaseLayout>
   <Header slot="header" />
-  <main class="flex min-h-[60vh] flex-col justify-center gap-4 py-16">
-    <h1 class="font-display text-5xl font-bold text-text">
-      bekapod<span class="text-pink">.</span>
-    </h1>
-    <p class="max-w-[44ch] text-soft">Placeholder</p>
+  <main>
+    <Hero />
 
     <section aria-labelledby="notes-heading">
       <SectionHeader

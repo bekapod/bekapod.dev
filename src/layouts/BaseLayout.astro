@@ -47,7 +47,21 @@ const {
     <meta name="description" content={description} />
     <title>{title}</title>
   </head>
-  <body>
+  <body class="relative overflow-x-hidden">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div
+        class="absolute -top-20 -left-[120px] size-[380px] rounded-full bg-pink opacity-[0.11] blur-[70px]"
+      >
+      </div>
+      <div
+        class="absolute top-[420px] -right-[140px] size-[420px] rounded-full bg-purple opacity-10 blur-[80px]"
+      >
+      </div>
+      <div
+        class="absolute top-[1400px] -left-[100px] size-[360px] rounded-full bg-teal opacity-[0.09] blur-[80px]"
+      >
+      </div>
+    </div>
     <slot name="header" />
     <div class="mx-auto w-full px-[clamp(16px,4vw,40px)]" style={`max-width:${width}px`}>
       <slot />

@@ -29,4 +29,23 @@ describe('BaseLayout', () => {
     // the header lands before the max-width wrapper, so it spans the viewport
     expect(headerIdx).toBeLessThan(containerIdx);
   });
+
+  it('paints three decorative gradient blobs hidden from assistive tech', async () => {
+    const html = await render();
+
+    expect(html).toContain('aria-hidden="true"');
+    expect(html).toContain('bg-pink');
+    expect(html).toContain('bg-purple');
+    expect(html).toContain('bg-teal');
+    expect(html).toContain('blur-');
+    expect(html).toContain('rounded-full');
+  });
+
+  it('keeps the blob layer behind content and clips its horizontal bleed', async () => {
+    const html = await render({ default: '<main data-test-body></main>' });
+
+    // a relative, x-clipped body so off-canvas blobs cannot cause sideways scroll
+    expect(html).toMatch(/<body[^>]*overflow-x-hidden/);
+    expect(html).toContain('-z-10');
+  });
 });
