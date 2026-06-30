@@ -15,6 +15,14 @@ describe('ThemeToggle', () => {
     expect(html).toContain('aria-pressed="false"');
   });
 
+  it('lifts and deepens its shadow on hover, matching the pill buttons', async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(ThemeToggle);
+
+    expect(html).toContain('hover:-translate-y-0.5');
+    expect(html).toContain('hover:shadow-sticker-sm-hover');
+  });
+
   it('renders the moon (light) and sun (dark) icons with theme-driven visibility', async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ThemeToggle);
