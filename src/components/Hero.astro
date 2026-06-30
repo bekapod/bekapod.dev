@@ -13,9 +13,9 @@ const RSS_URL = '/rss.xml';
 <section
   id="hero"
   aria-labelledby="hero-heading"
-  class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-center gap-[clamp(28px,5vw,56px)] py-[clamp(36px,7vw,84px)]"
+  class="grid grid-cols-1 items-center gap-[clamp(28px,5vw,56px)] py-[clamp(36px,7vw,84px)] md:grid-cols-2"
 >
-  <div class="text-center sm:text-left">
+  <div class="text-center md:text-left">
     <p class="mb-2 text-base font-bold tracking-[1.5px] uppercase">Hi, I'm</p>
 
     <h1
@@ -26,17 +26,17 @@ const RSS_URL = '/rss.xml';
     </h1>
 
     <p
-      class="mx-auto mb-[14px] max-w-[34ch] text-[clamp(17px,2.4vw,21px)] font-semibold text-pretty sm:mx-0"
+      class="mx-auto mb-[14px] max-w-[34ch] text-[clamp(17px,2.4vw,21px)] font-semibold text-pretty md:mx-0"
     >
       Software engineer building delightful things on the web.
     </p>
 
-    <p class="mx-auto mb-6 max-w-[44ch] text-base leading-relaxed text-pretty text-soft sm:mx-0">
+    <p class="mx-auto mb-6 max-w-[44ch] text-base leading-relaxed text-pretty text-soft md:mx-0">
       I write notes, the odd longer post, craft, and ship small hobby projects. Everything here is
       stuff that brings me joy. Have a poke around.
     </p>
 
-    <div class="flex flex-wrap justify-center gap-2.5 sm:justify-start">
+    <div class="flex flex-wrap justify-center gap-2.5 md:justify-start">
       <PillButton href={GITHUB_URL} color="ink">
         <Icon icon={faGithub} />GitHub
       </PillButton>
@@ -52,5 +52,7 @@ const RSS_URL = '/rss.xml';
     </div>
   </div>
 
-  <slot />
+  <div class="hidden md:block">
+    <slot />
+  </div>
 </section>

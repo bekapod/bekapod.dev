@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
+import TerminalCard from '../components/TerminalCard.astro';
 import StickerCard from '../components/StickerCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import SectionBadge from '../components/SectionBadge.astro';
@@ -14,7 +15,9 @@ import { faAt, faCode, faRss } from '@fortawesome/free-solid-svg-icons';
 <BaseLayout>
   <Header slot="header" />
   <main>
-    <Hero />
+    <Hero>
+      <TerminalCard />
+    </Hero>
 
     <section aria-labelledby="notes-heading">
       <SectionHeader

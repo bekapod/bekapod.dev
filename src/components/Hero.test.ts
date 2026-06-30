@@ -64,17 +64,24 @@ describe('Hero', () => {
     expect(html).toMatch(/aria-labelledby="[^"]+"/);
   });
 
-  it('lays out a two-column auto-fit grid that centres text on narrow viewports', async () => {
+  it('stacks into one centred column below md, then splits into two at md', async () => {
     const html = await render();
 
-    expect(html).toContain('grid-cols-[repeat(auto-fit,minmax(300px,1fr))]');
+    expect(html).toContain('grid-cols-1');
+    expect(html).toContain('md:grid-cols-2');
     expect(html).toContain('text-center');
-    expect(html).toContain('sm:text-left');
+    expect(html).toContain('md:text-left');
   });
 
   it('renders slotted content as the right column', async () => {
     const html = await render({}, { default: '<div data-test="terminal">terminal</div>' });
 
     expect(html).toContain('data-test="terminal"');
+  });
+
+  it('hides the right column below md, where it would duplicate the hero copy', async () => {
+    const html = await render({}, { default: '<div data-test="terminal">terminal</div>' });
+
+    expect(html).toContain('hidden md:block');
   });
 });
