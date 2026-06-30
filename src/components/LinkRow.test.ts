@@ -37,6 +37,15 @@ describe('LinkRow', () => {
     expect(html).toContain('text-white');
   });
 
+  it('derives ink text on a bright accent and white text on the ink accent by default', async () => {
+    const bright = await render({ href: '#', color: 'coral' });
+    expect(bright).toContain('text-ink');
+    expect(bright).not.toContain('text-white');
+
+    const ink = await render({ href: '#', color: 'ink' });
+    expect(ink).toContain('text-white');
+  });
+
   it('slides right and deepens its shadow on hover', async () => {
     const html = await render({ href: '#' });
 

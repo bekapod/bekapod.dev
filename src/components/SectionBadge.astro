@@ -1,5 +1,6 @@
 ---
 import type { HTMLTag, Polymorphic } from 'astro/types';
+import { accentTextColor } from '../lib/accent';
 
 type Accent = 'pink' | 'coral' | 'teal' | 'yellow' | 'purple' | 'green' | 'orange' | 'blue' | 'ink';
 type TextColor = 'white' | 'ink';
@@ -34,7 +35,7 @@ const {
   as: Tag = 'span',
   label,
   color = 'pink',
-  textColor = 'white',
+  textColor = accentTextColor(color),
   class: className,
   ...rest
 } = Astro.props;

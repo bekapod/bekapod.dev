@@ -35,10 +35,16 @@ describe('Tag', () => {
     expect(html).not.toContain('bg-chip');
   });
 
-  it('inherits the theme text colour by default and maps textColor to a static token', async () => {
-    const base = await render({ label: 'astro' });
-    expect(base).toContain('text-text');
+  it('inherits the theme text colour on the neutral chip, but derives ink on a bright accent', async () => {
+    const chip = await render({ label: 'astro' });
+    expect(chip).toContain('text-text');
 
+    const accent = await render({ label: 'shipped', color: 'pink' });
+    expect(accent).toContain('text-ink');
+    expect(accent).not.toContain('text-text');
+  });
+
+  it('honours an explicit textColor override over the derived default', async () => {
     const white = await render({ label: 'shipped', color: 'pink', textColor: 'white' });
     expect(white).toContain('text-white');
     expect(white).not.toContain('text-text');

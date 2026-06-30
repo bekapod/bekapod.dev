@@ -35,6 +35,15 @@ describe('PillButton', () => {
     expect(html).toContain('text-white');
   });
 
+  it('derives ink text on a bright accent and white text on the ink accent by default', async () => {
+    const bright = await render({ href: '#', color: 'purple' });
+    expect(bright).toContain('text-ink');
+    expect(bright).not.toContain('text-white');
+
+    const ink = await render({ href: '#', color: 'ink' });
+    expect(ink).toContain('text-white');
+  });
+
   it('defaults to the medium size: standard shadow step and a -3px hover lift', async () => {
     const html = await render({ href: '#' });
 

@@ -1,6 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import type { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { accentTextColor } from '../lib/accent';
 import Icon from './Icon.astro';
 
 type Accent = 'pink' | 'coral' | 'teal' | 'yellow' | 'purple' | 'green' | 'orange' | 'blue' | 'ink';
@@ -39,7 +40,7 @@ const TEXT_COLORS: Record<TextColor, string> = {
 const {
   href,
   color = 'ink',
-  textColor = 'white',
+  textColor = accentTextColor(color),
   label,
   sub,
   icon,

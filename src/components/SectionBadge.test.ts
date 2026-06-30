@@ -27,13 +27,19 @@ describe('SectionBadge', () => {
     expect(html).toContain('bg-pink');
   });
 
-  it('defaults the text color to white and maps textColor to a static token', async () => {
-    const white = await render({ label: 'notes' });
-    expect(white).toContain('text-white');
+  it('derives the text colour from the accent: ink on the default pink badge', async () => {
+    const html = await render({ label: 'notes' });
 
-    const ink = await render({ label: 'making', textColor: 'ink' });
-    expect(ink).toContain('text-ink');
-    expect(ink).not.toContain('text-white');
+    expect(html).toContain('text-ink');
+    expect(html).not.toContain('text-white');
+  });
+
+  it('flips to white text on the dark ink accent, and honours an explicit override', async () => {
+    const ink = await render({ label: 'github', color: 'ink' });
+    expect(ink).toContain('text-white');
+
+    const override = await render({ label: 'notes', color: 'pink', textColor: 'white' });
+    expect(override).toContain('text-white');
   });
 
   it('renders the element named by `as` and forwards extra attributes', async () => {

@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
+import { accentTextColor } from '../lib/accent';
 
 type Accent = 'pink' | 'coral' | 'teal' | 'yellow' | 'purple' | 'green' | 'orange' | 'blue' | 'ink';
 type TextColor = 'white' | 'ink';
@@ -42,7 +43,7 @@ const {
   href,
   type,
   color = 'ink',
-  textColor = 'white',
+  textColor = accentTextColor(color),
   size = 'md',
   class: className,
   ...rest

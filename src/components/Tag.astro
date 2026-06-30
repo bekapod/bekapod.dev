@@ -1,5 +1,6 @@
 ---
 import type { HTMLTag, Polymorphic } from 'astro/types';
+import { accentTextColor } from '../lib/accent';
 
 type Accent = 'pink' | 'coral' | 'teal' | 'yellow' | 'purple' | 'green' | 'orange' | 'blue' | 'ink';
 type Color = 'chip' | Accent;
@@ -45,7 +46,7 @@ const {
   as: Tag = 'span',
   label,
   color = 'chip',
-  textColor = 'inherit',
+  textColor = color === 'chip' ? 'inherit' : accentTextColor(color),
   radius = 'sm',
   class: className,
   ...rest
