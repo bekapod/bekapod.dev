@@ -4,6 +4,7 @@ import ThemeToggle from '../components/ThemeToggle.astro';
 import StickerCard from '../components/StickerCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import SectionBadge from '../components/SectionBadge.astro';
+import PillButton from '../components/PillButton.astro';
 ---
 
 <BaseLayout>
@@ -42,6 +43,40 @@ import SectionBadge from '../components/SectionBadge.astro';
       <SectionBadge label="making" color="green" textColor="ink" />
       <SectionBadge label="now" color="purple" />
       <SectionBadge label="links" color="yellow" textColor="ink" />
+    </div>
+
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-wrap items-center gap-3">
+        <PillButton href="#" color="ink" textColor="white">
+          <span class="size-2 rounded-full bg-yellow" aria-hidden="true"></span>GitHub
+        </PillButton>
+        <PillButton href="#" color="blue" textColor="white">
+          <span class="size-2 rounded-full bg-white" aria-hidden="true"></span>Bluesky
+        </PillButton>
+        <PillButton href="#" color="orange" textColor="ink">
+          <span class="size-2 rounded-full bg-ink" aria-hidden="true"></span>RSS
+        </PillButton>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <PillButton color="purple" textColor="white" size="sm">say hi</PillButton>
+        <PillButton color="yellow" textColor="ink" size="sm">&larr; back home</PillButton>
+        <PillButton href="#" color="blue" textColor="white" size="lg"
+          >view full feed on Bluesky &rarr;</PillButton
+        >
+      </div>
+
+      <div class="flex">
+        <PillButton
+          href="#"
+          color="blue"
+          textColor="white"
+          size="lg"
+          class="shadow-[2.5px_2.5px_0_var(--color-pink)] hover:shadow-[4px_4px_0_var(--color-pink)]"
+        >
+          find me on Bluesky &rarr;
+        </PillButton>
+      </div>
     </div>
   </main>
 </BaseLayout>

@@ -1,0 +1,79 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Accent = 'pink' | 'coral' | 'teal' | 'yellow' | 'purple' | 'green' | 'orange' | 'blue' | 'ink';
+type TextColor = 'white' | 'ink';
+type Size = 'sm' | 'md' | 'lg';
+
+type Props = HTMLAttributes<'a'> &
+  HTMLAttributes<'button'> & {
+    /** Accent background token. */
+    color?: Accent;
+    /** Foreground colour for legible text on the accent. */
+    textColor?: TextColor;
+    /** Size step — drives padding, hard-shadow depth, and hover-lift together. */
+    size?: Size;
+  };
+
+const BACKGROUNDS: Record<Accent, string> = {
+  pink: 'bg-pink',
+  coral: 'bg-coral',
+  teal: 'bg-teal',
+  yellow: 'bg-yellow',
+  purple: 'bg-purple',
+  green: 'bg-green',
+  orange: 'bg-orange',
+  blue: 'bg-blue',
+  ink: 'bg-ink',
+};
+
+const TEXT_COLORS: Record<TextColor, string> = {
+  white: 'text-white',
+  ink: 'text-ink',
+};
+
+const SIZES: Record<Size, string> = {
+  sm: 'px-4 py-1.5 text-sm shadow-sticker-sm hover:shadow-sticker-sm-hover hover:-translate-y-0.5',
+  md: 'px-4 py-2 text-sm shadow-sticker hover:shadow-sticker-hover hover:-translate-y-[3px]',
+  lg: 'px-6 py-3 text-base shadow-sticker-lg hover:shadow-sticker-lg-hover hover:-translate-y-[3px]',
+};
+
+const {
+  href,
+  type,
+  color = 'ink',
+  textColor = 'white',
+  size = 'md',
+  class: className,
+  ...rest
+} = Astro.props;
+
+const isLink = href != null;
+const Tag = isLink ? 'a' : 'button';
+const buttonType = isLink ? undefined : (type ?? 'button');
+---
+
+<Tag
+  class:list={[
+    'inline-flex cursor-pointer items-center justify-center gap-2 rounded-pill border-[1.5px] border-line font-bold no-underline',
+    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-line',
+    BACKGROUNDS[color],
+    TEXT_COLORS[textColor],
+    SIZES[size],
+    className,
+  ]}
+  href={href}
+  type={buttonType}
+  {...rest}
+>
+  <slot />
+</Tag>
+
+<style>
+  a,
+  button {
+    transition:
+      translate 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.4),
+      box-shadow 0.22s ease;
+  }
+</style>
