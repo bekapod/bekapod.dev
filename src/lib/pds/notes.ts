@@ -36,7 +36,7 @@ export function deriveTag(record: FeedPostRecord): string {
       if (feature.$type === TAG_FACET && feature.tag) return feature.tag;
     }
   }
-  return 'note';
+  return '';
 }
 
 export function toNotes(feed: unknown[], limit = DEFAULT_LIMIT): Note[] {

@@ -41,8 +41,8 @@ describe('deriveTag', () => {
     expect(deriveTag({ facets: [TAG_FACET('til')] })).toBe('til');
   });
 
-  it("defaults to 'note' when there is no tag", () => {
-    expect(deriveTag({})).toBe('note');
+  it('returns an empty string when there is no tag', () => {
+    expect(deriveTag({})).toBe('');
   });
 });
 

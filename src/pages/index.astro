@@ -2,7 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
+import Notes from '../components/Notes.astro';
 import TerminalCard from '../components/TerminalCard.astro';
+import { getNotes } from '../lib/pds/notes.ts';
+
+const notes = await getNotes();
 ---
 
 <BaseLayout>
@@ -11,5 +15,6 @@ import TerminalCard from '../components/TerminalCard.astro';
     <Hero>
       <TerminalCard />
     </Hero>
+    <Notes {notes} />
   </main>
 </BaseLayout>

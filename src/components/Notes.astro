@@ -1,0 +1,99 @@
+---
+import { faBluesky } from '@fortawesome/free-brands-svg-icons';
+import { faHeart, faReply, faRetweet } from '@fortawesome/free-solid-svg-icons';
+import { noteAccent } from '../lib/note-accent';
+import { relativeTime } from '../lib/relative-time';
+import type { Note } from '../lib/pds/shapes';
+import Icon from './Icon.astro';
+import PillButton from './PillButton.astro';
+import SectionHeader from './SectionHeader.astro';
+import StickerCard from './StickerCard.astro';
+import Tag from './Tag.astro';
+
+interface Props {
+  notes: Note[];
+}
+
+const { notes } = Astro.props;
+
+const BLUESKY_URL = 'https://bsky.app/profile/bekapod.dev';
+---
+
+<section
+  id="notes"
+  aria-labelledby="notes-heading"
+  class="pt-[clamp(48px,7vw,90px)] pb-[clamp(24px,3vw,36px)]"
+>
+  <SectionHeader
+    as="h2"
+    id="notes-heading"
+    label="notes"
+    color="pink"
+    subtitle="thinking out loud, intelligent thought not guaranteed."
+  />
+
+  <div class="[column-gap:18px] [column-width:280px]">
+    {
+      notes.map((note, i) => (
+        <StickerCard interactive padding="sm" class="mb-[18px] [break-inside:avoid]">
+          <div class="mb-2.5 flex items-center gap-2.5">
+            {note.tag ? (
+              <Tag label={note.tag} color={noteAccent(i)} radius="lg" />
+            ) : (
+              <span
+                class="size-[18px] rounded-full border border-line"
+                style={`background:var(--color-${noteAccent(i)})`}
+                aria-hidden="true"
+              />
+            )}
+            <time
+              datetime={note.createdAt}
+              data-relative
+              class="ml-auto font-mono text-xs text-muted"
+            >
+              {relativeTime(note.createdAt)}
+            </time>
+          </div>
+
+          <p class="mb-3 text-[15px] leading-[1.5] text-pretty">{note.text}</p>
+
+          <div class="flex gap-[18px] font-mono text-[12.5px] font-medium text-soft">
+            <span class="inline-flex items-center gap-1.5">
+              <Icon icon={faReply} class="text-blue" />
+              {note.replies}
+            </span>
+            <span class="inline-flex items-center gap-1.5">
+              <Icon icon={faRetweet} class="text-teal" />
+              {note.reposts}
+            </span>
+            <span class="inline-flex items-center gap-1.5">
+              <Icon icon={faHeart} class="text-coral" />
+              {note.likes}
+            </span>
+          </div>
+        </StickerCard>
+      ))
+    }
+  </div>
+
+  <div class="mt-[26px] flex justify-center">
+    <PillButton href={BLUESKY_URL} color="blue">
+      <Icon icon={faBluesky} />view full feed on Bluesky <span aria-hidden="true">→</span>
+    </PillButton>
+  </div>
+</section>
+
+<script>
+  import { relativeTime } from '../lib/relative-time';
+
+  function refresh() {
+    const now = new Date();
+    for (const el of document.querySelectorAll<HTMLTimeElement>('time[data-relative]')) {
+      const iso = el.getAttribute('datetime');
+      if (iso) el.textContent = relativeTime(iso, now);
+    }
+  }
+
+  refresh();
+  setInterval(refresh, 60_000);
+</script>
