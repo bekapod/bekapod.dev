@@ -4,11 +4,13 @@ import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import Notes from '../components/Notes.astro';
 import BlogList from '../components/BlogList.astro';
+import Projects from '../components/Projects.astro';
 import TerminalCard from '../components/TerminalCard.astro';
 import { getNotes } from '../lib/pds/notes.ts';
 import { getBlogPosts } from '../lib/pds/documents.ts';
+import { getProjects } from '../lib/pds/projects.ts';
 
-const [notes, posts] = await Promise.all([getNotes(), getBlogPosts()]);
+const [notes, posts, { projects }] = await Promise.all([getNotes(), getBlogPosts(), getProjects()]);
 ---
 
 <BaseLayout>
@@ -19,5 +21,6 @@ const [notes, posts] = await Promise.all([getNotes(), getBlogPosts()]);
     </Hero>
     <Notes {notes} />
     <BlogList {posts} />
+    <Projects {projects} />
   </main>
 </BaseLayout>
