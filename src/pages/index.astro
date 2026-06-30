@@ -6,6 +6,8 @@ import SectionHeader from '../components/SectionHeader.astro';
 import SectionBadge from '../components/SectionBadge.astro';
 import PillButton from '../components/PillButton.astro';
 import Tag from '../components/Tag.astro';
+import LinkRow from '../components/LinkRow.astro';
+import { faAt, faCode, faRss } from '@fortawesome/free-solid-svg-icons';
 ---
 
 <BaseLayout>
@@ -95,6 +97,34 @@ import Tag from '../components/Tag.astro';
           find me on Bluesky &rarr;
         </PillButton>
       </div>
+    </div>
+
+    <div class="flex max-w-md flex-col gap-[13px]">
+      <LinkRow
+        href="#"
+        icon={faCode}
+        color="ink"
+        textColor="white"
+        label="GitHub"
+        sub="code & experiments"
+      />
+      <LinkRow
+        href="#"
+        icon={faAt}
+        color="blue"
+        textColor="white"
+        label="Bluesky"
+        sub="@bekapod.dev"
+      />
+      <LinkRow
+        href="#"
+        icon={faRss}
+        color="orange"
+        textColor="ink"
+        label="RSS feed"
+        sub="subscribe to the blog"
+      />
+      <LinkRow href="#" color="coral" textColor="white" label="Ravelry" sub="my knits & queue" />
     </div>
   </main>
 </BaseLayout>

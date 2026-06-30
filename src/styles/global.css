@@ -119,6 +119,9 @@
   --shadow-sticker-hover: 3px 4px 0 var(--shadow);
   --shadow-sticker-lg: 4px 4px 0 var(--shadow);
   --shadow-sticker-lg-hover: 4px 5px 0 var(--shadow);
+
+  --shadow-link: 2px 2px 0 var(--shadow);
+  --shadow-link-hover: 4px 4px 0 var(--shadow);
 }
 
 @layer base {
