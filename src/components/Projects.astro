@@ -1,0 +1,71 @@
+---
+import { accentAt } from '../lib/accent-cycle';
+import type { Project } from '../lib/pds/shapes';
+import SectionHeader from './SectionHeader.astro';
+import StickerCard from './StickerCard.astro';
+import Tag from './Tag.astro';
+
+interface Props {
+  projects: Project[];
+}
+
+const { projects } = Astro.props;
+---
+
+<section
+  id="projects"
+  aria-labelledby="projects-heading"
+  class="pt-[clamp(48px,7vw,90px)] pb-[clamp(24px,3vw,36px)]"
+>
+  <SectionHeader
+    as="h2"
+    id="projects-heading"
+    label="projects"
+    color="teal"
+    subtitle="things I've made & broken"
+  />
+
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-[18px]">
+    {
+      projects.map((project, i) => {
+        const accent = accentAt(i, 'projects');
+        // An unlinked project is a plain card, not a focusable anchor.
+        const cardProps = project.link
+          ? { as: 'a' as const, href: project.link, interactive: true }
+          : { as: 'div' as const };
+        return (
+          <StickerCard
+            {...cardProps}
+            radius="card-lg"
+            padding="none"
+            class="overflow-hidden text-text no-underline"
+          >
+            <div
+              aria-hidden="true"
+              class="h-[104px] border-b-[1.5px] border-line"
+              style={`background:repeating-linear-gradient(135deg,var(--color-${accent}),var(--color-${accent}) 13px,var(--line) 13px,var(--line) 15px)`}
+            />
+
+            <div class="px-4 pt-[15px] pb-[17px]">
+              <h3 class="mb-1.5 font-display text-[20px] leading-tight font-bold">
+                {project.title}
+              </h3>
+              {project.description && (
+                <p class="mb-3 text-sm leading-[1.5] text-pretty text-soft">
+                  {project.description}
+                </p>
+              )}
+              {project.tags.length > 0 && (
+                <div class="flex flex-wrap gap-1.5">
+                  {project.tags.map((tag) => (
+                    <Tag label={tag} radius="lg" />
+                  ))}
+                </div>
+              )}
+            </div>
+          </StickerCard>
+        );
+      })
+    }
+  </div>
+</section>

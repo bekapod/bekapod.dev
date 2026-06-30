@@ -1,0 +1,47 @@
+---
+import { accentBg } from '../lib/accent';
+import type { NowRow } from '../data/now';
+import SectionHeader from './SectionHeader.astro';
+import StickerCard from './StickerCard.astro';
+
+interface Props {
+  rows: NowRow[];
+}
+
+const { rows } = Astro.props;
+---
+
+<section id="now" aria-labelledby="now-heading">
+  <SectionHeader
+    as="h2"
+    id="now-heading"
+    label="now"
+    color="purple"
+    subtitle="what I'm up to lately"
+  />
+
+  <StickerCard radius="card-lg" padding="none" class="px-[22px] pt-[22px] pb-6">
+    <p class="mb-4 font-display text-[18px] leading-none font-bold tracking-[-0.3px]">currently…</p>
+    <ul class="flex flex-col gap-[15px]">
+      {
+        rows.map((row) => (
+          <li class="flex items-start gap-3">
+            <span
+              class:list={[
+                'mt-[3px] size-4 flex-none rounded-[5px] border border-line',
+                accentBg(row.color),
+              ]}
+              aria-hidden="true"
+            />
+            <span>
+              <span class="block font-mono text-[11px] font-bold tracking-[1px] text-muted uppercase">
+                {row.label}
+              </span>
+              <span class="block text-[15px] leading-[1.4] font-semibold">{row.value}</span>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </StickerCard>
+</section>

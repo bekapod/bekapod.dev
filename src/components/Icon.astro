@@ -1,0 +1,25 @@
+---
+import type { IconDefinition } from '@fortawesome/fontawesome-common-types';
+
+interface Props {
+  icon: IconDefinition;
+  class?: string;
+}
+
+const { icon, class: className } = Astro.props;
+const [width, height, , , pathData] = icon.icon;
+const d = Array.isArray(pathData) ? pathData.at(-1)! : pathData;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={`0 0 ${width} ${height}`}
+  width="1em"
+  height="1em"
+  fill="currentColor"
+  aria-hidden="true"
+  focusable="false"
+  class={className}
+>
+  <path d={d}></path>
+</svg>

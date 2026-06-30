@@ -1,0 +1,159 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@font-face {
+  font-family: 'Space Grotesk Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 700;
+  src: url(@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2)
+    format('woff2-variations');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Hanken Grotesk Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2)
+    format('woff2-variations');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(@fontsource/dm-mono/files/dm-mono-latin-400-normal.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(@fontsource/dm-mono/files/dm-mono-latin-500-normal.woff2) format('woff2');
+}
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+:root,
+[data-theme='light'] {
+  --bg: #fbf4e9;
+  --dots: #ebdfcb;
+  --surface: #ffffff;
+  --line: #211b16;
+  --shadow: #211b16;
+  --text: #211b16;
+  --soft: #5c5249;
+  --muted: #9c8e78;
+  --chip: #fbf4e9;
+  --divider: #efe4cf;
+  --glass: rgba(251, 244, 233, 0.82);
+  --pha: #f1e7d4;
+  --phb: #e9dcc3;
+}
+
+[data-theme='dark'] {
+  --bg: #1b1611;
+  --dots: #2c2520;
+  --surface: #2a231c;
+  --line: #f4ead9;
+  --shadow: rgba(244, 234, 217, 0.2);
+  --text: #f4ead9;
+  --soft: #c7baa6;
+  --muted: #9f907a;
+  --chip: #15110d;
+  --divider: #3a322b;
+  --glass: rgba(27, 22, 17, 0.82);
+  --pha: #2a231c;
+  --phb: #221c16;
+}
+
+@theme {
+  --color-pink: #ff6bd6;
+  --color-coral: #ff5e5b;
+  --color-teal: #2ec4b6;
+  --color-yellow: #ffd23f;
+  --color-purple: #9b5de5;
+  --color-green: #7fb069;
+  --color-orange: #ff9f1c;
+  --color-blue: #3a86ff;
+  --color-ink: #211b16;
+
+  --radius-pill: 999px;
+  --radius-control: 10px;
+  --radius-chip: 6px;
+  --radius-chip-lg: 16px;
+  --radius-card: 18px;
+  --radius-card-lg: 22px;
+
+  --font-display: 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-dots: var(--dots);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-soft: var(--soft);
+  --color-muted: var(--muted);
+  --color-chip: var(--chip);
+  --color-divider: var(--divider);
+  --color-glass: var(--glass);
+  --color-pha: var(--pha);
+  --color-phb: var(--phb);
+
+  --shadow-sticker-sm: 1.5px 1.5px 0 var(--shadow);
+  --shadow-sticker-sm-hover: 1.5px 2.5px 0 var(--shadow);
+  --shadow-sticker: 3px 3px 0 var(--shadow);
+  --shadow-sticker-hover: 3px 4px 0 var(--shadow);
+  --shadow-sticker-lg: 4px 4px 0 var(--shadow);
+  --shadow-sticker-lg-hover: 4px 5px 0 var(--shadow);
+
+  --shadow-link: 2px 2px 0 var(--shadow);
+  --shadow-link-hover: 4px 4px 0 var(--shadow);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100svh;
+    background-color: var(--bg);
+    background-image: radial-gradient(var(--dots) 1.2px, transparent 1.2px);
+    background-size: 30px 30px;
+    color: var(--text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    transition:
+      background 0.3s,
+      color 0.3s;
+  }
+}
+
+/* Global reduced-motion backstop, so components can declare motion freely.
+   Unlayered + !important overrides @layer base and Tailwind utilities
+   (important declarations invert cascade-layer order); the non-zero
+   duration keeps transitionend/animationend listeners firing. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

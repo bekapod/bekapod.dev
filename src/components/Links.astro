@@ -1,0 +1,35 @@
+---
+import type { LinkEntry } from '../data/links';
+import LinkRow from './LinkRow.astro';
+import SectionHeader from './SectionHeader.astro';
+
+interface Props {
+  links: LinkEntry[];
+}
+
+const { links } = Astro.props;
+---
+
+<section id="links" aria-labelledby="links-heading">
+  <SectionHeader
+    as="h2"
+    id="links-heading"
+    label="links"
+    color="yellow"
+    subtitle="find me everywhere"
+  />
+
+  <div class="flex flex-col gap-[13px]">
+    {
+      links.map((link) => (
+        <LinkRow
+          href={link.href}
+          color={link.color}
+          icon={link.icon}
+          label={link.label}
+          sub={link.sub}
+        />
+      ))
+    }
+  </div>
+</section>

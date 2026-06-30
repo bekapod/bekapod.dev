@@ -1,0 +1,37 @@
+---
+const fields = [
+  { key: 'handle', value: 'bekapod.dev' },
+  { key: 'role', value: 'software engineer' },
+  { key: 'based', value: 'Liverpool, UK' },
+];
+---
+
+<div
+  role="img"
+  aria-label="Terminal readout — bekapod.dev: software engineer based in Liverpool, UK."
+  class="mx-auto w-full max-w-[380px] overflow-hidden rounded-card border-[1.5px] border-line bg-[#1B1611] font-mono shadow-sticker-lg"
+>
+  <div
+    class="flex items-center gap-[7px] border-b border-black/40 bg-[#2A231C] px-[14px] py-[11px]"
+  >
+    <span class="size-[11px] rounded-full bg-coral"></span>
+    <span class="size-[11px] rounded-full bg-yellow"></span>
+    <span class="size-[11px] rounded-full bg-teal"></span>
+    <span class="ml-2 text-[12px] text-[#9C8E78]">bekapod.dev — ~/about</span>
+  </div>
+
+  <div class="px-[18px] pt-[18px] pb-5 text-[13.5px] leading-[1.85] text-[#FBF4E9]">
+    <div class="text-[#6E6358]">// who's this?</div>
+    <div class="mb-1"><span class="text-pink">$</span> whoami</div>
+    <div>&#123;</div>
+    {
+      fields.map(({ key, value }, i) => (
+        <div class="pl-[18px]">
+          <span class="text-yellow">{key}</span>: <span class="text-teal">"{value}"</span>
+          {i < fields.length - 1 ? ',' : ''}
+        </div>
+      ))
+    }
+    <div>&#125;</div>
+  </div>
+</div>

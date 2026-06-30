@@ -1,0 +1,89 @@
+---
+import type { HTMLTag, Polymorphic } from 'astro/types';
+
+type Radius = 'card' | 'card-lg';
+type Shadow = 'sm' | 'md' | 'lg';
+type Padding = 'none' | 'sm' | 'md' | 'lg';
+
+type Props<Tag extends HTMLTag = 'div'> = Polymorphic<{ as: Tag }> & {
+  /** Corner radius token: `card` (18px) or `card-lg` (22px). */
+  radius?: Radius;
+  /** Hard-shadow depth. `interactive` deepens it one step on hover. */
+  shadow?: Shadow;
+  /** Inner padding step. */
+  padding?: Padding;
+  /** Adds the hover-lift + deeper shadow + focus ring. */
+  interactive?: boolean;
+};
+
+const RADII: Record<Radius, string> = {
+  card: 'rounded-card',
+  'card-lg': 'rounded-card-lg',
+};
+
+const SHADOWS: Record<Shadow, string> = {
+  sm: 'shadow-sticker-sm',
+  md: 'shadow-sticker',
+  lg: 'shadow-sticker-lg',
+};
+
+const SHADOWS_HOVER: Record<Shadow, string> = {
+  sm: 'hover:shadow-sticker-sm-hover',
+  md: 'hover:shadow-sticker-hover',
+  lg: 'hover:shadow-sticker-lg-hover',
+};
+
+const LIFTS: Record<Shadow, string> = {
+  sm: 'hover:-translate-y-1',
+  md: 'hover:-translate-y-[5px]',
+  lg: 'hover:-translate-y-1.5',
+};
+
+const PADDINGS: Record<Padding, string> = {
+  none: '',
+  sm: 'p-4',
+  md: 'p-5',
+  lg: 'p-6',
+};
+
+const {
+  as: Tag = 'div',
+  radius = 'card',
+  shadow = 'md',
+  padding = 'md',
+  interactive = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const interactiveClasses = interactive
+  ? [
+      SHADOWS_HOVER[shadow],
+      LIFTS[shadow],
+      'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-line',
+    ]
+  : [];
+---
+
+<Tag
+  class:list={[
+    'border-[1.5px] border-line bg-surface',
+    RADII[radius],
+    SHADOWS[shadow],
+    PADDINGS[padding],
+    ...interactiveClasses,
+    className,
+  ]}
+  data-interactive={interactive ? '' : undefined}
+  {...rest}
+>
+  <slot />
+</Tag>
+
+<style>
+  [data-interactive] {
+    transition:
+      translate 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.4),
+      box-shadow 0.22s ease;
+  }
+</style>

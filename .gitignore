@@ -1,4 +1,12 @@
 dist
-public
-.hugo_build.lock
 node_modules
+.astro
+
+# Local Netlify folder
+.netlify
+
+# Secrets
+.env
+
+# Local PDS seed content (uncommitted; the PDS is the source of truth)
+content/projects/

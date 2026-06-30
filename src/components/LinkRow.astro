@@ -1,0 +1,73 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import type { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { accentBg, accentTextColor } from '../lib/accent';
+import Icon from './Icon.astro';
+
+type Accent = 'pink' | 'coral' | 'teal' | 'yellow' | 'purple' | 'green' | 'orange' | 'blue' | 'ink';
+type TextColor = 'white' | 'ink';
+
+type Props = HTMLAttributes<'a'> & {
+  /** Accent background token. */
+  color?: Accent;
+  /** Foreground colour for legible text on the accent; also tints the glyph. */
+  textColor?: TextColor;
+  /** Bold primary label (16px). */
+  label?: string;
+  /** Muted supporting line (12px). */
+  sub?: string;
+  /** Optional leading glyph; falls back to an outlined square. */
+  icon?: IconDefinition;
+};
+
+const TEXT_COLORS: Record<TextColor, string> = {
+  white: 'text-white',
+  ink: 'text-ink',
+};
+
+const {
+  href,
+  color = 'ink',
+  textColor = accentTextColor(color),
+  label,
+  sub,
+  icon,
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<a
+  class:list={[
+    'flex w-full items-center gap-[14px] rounded-chip-lg border-[1.5px] border-line px-[18px] py-[14px] font-bold no-underline',
+    'shadow-link hover:translate-x-[6px] hover:shadow-link-hover',
+    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-line',
+    accentBg(color),
+    TEXT_COLORS[textColor],
+    className,
+  ]}
+  href={href}
+  {...rest}
+>
+  {
+    icon ? (
+      <Icon icon={icon} class="size-[18px] shrink-0" />
+    ) : (
+      <span class="size-[14px] shrink-0 rounded-[4px] border-2 border-current" aria-hidden="true" />
+    )
+  }
+  <span class="min-w-0 flex-1">
+    <span class="block text-base">{label}</span>
+    {sub && <span class="block text-xs font-medium opacity-80">{sub}</span>}
+  </span>
+  <Icon icon={faArrowRight} class="size-[18px] shrink-0" />
+</a>
+
+<style>
+  a {
+    transition:
+      translate 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.4),
+      box-shadow 0.22s ease;
+  }
+</style>

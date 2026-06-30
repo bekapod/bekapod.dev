@@ -1,0 +1,69 @@
+---
+import { accentTextColor, type Accent, type OnAccent } from '../lib/accent';
+import PillButton from './PillButton.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+const HOVER_BG = {
+  pink: 'hover:bg-pink',
+  coral: 'hover:bg-coral',
+  teal: 'hover:bg-teal',
+  green: 'hover:bg-green',
+  purple: 'hover:bg-purple',
+} satisfies Partial<Record<Accent, string>>;
+
+const HOVER_TEXT = {
+  ink: 'hover:text-ink',
+  white: 'hover:text-white',
+} satisfies Record<OnAccent, string>;
+
+const navLinks = [
+  { id: 'notes', accent: 'pink' },
+  { id: 'blog', accent: 'coral' },
+  { id: 'projects', accent: 'teal' },
+  { id: 'making', accent: 'green' },
+  { id: 'now', accent: 'purple' },
+] satisfies { id: string; accent: keyof typeof HOVER_BG }[];
+---
+
+<header
+  class="static top-0 z-50 flex flex-wrap items-center gap-x-4 gap-y-3 border-b-[1.5px] border-line bg-glass px-[clamp(16px,4vw,40px)] py-[14px] backdrop-blur-[10px] sm:sticky"
+>
+  <a
+    href="/"
+    class="mr-auto flex items-center gap-2.5 no-underline focus-visible:rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-line"
+  >
+    <span
+      aria-hidden="true"
+      class="inline-flex size-[34px] items-center justify-center rounded-control border-[1.5px] border-line bg-yellow text-[18px] font-bold text-ink shadow-sticker-sm"
+      >b</span
+    >
+    <span class="text-[18px] font-bold tracking-[-0.5px] text-text">bekapod.dev</span>
+  </a>
+
+  <div class="order-2 flex items-center lg:order-3">
+    <ThemeToggle />
+  </div>
+
+  <nav
+    aria-label="Primary"
+    class="order-3 flex basis-full flex-wrap items-center gap-2 lg:order-2 lg:basis-auto"
+  >
+    {
+      navLinks.map((link) => (
+        <a
+          href={`#${link.id}`}
+          class:list={[
+            'rounded-pill px-[13px] py-1.5 text-sm font-semibold text-text no-underline',
+            'transition-[background-color,color] duration-200',
+            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-line',
+            HOVER_BG[link.accent],
+            HOVER_TEXT[accentTextColor(link.accent)],
+          ]}
+        >
+          {link.id}
+        </a>
+      ))
+    }
+    <PillButton href="#contact" color="purple" size="sm">say hi</PillButton>
+  </nav>
+</header>

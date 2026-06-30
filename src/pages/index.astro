@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Notes from '../components/Notes.astro';
+import BlogList from '../components/BlogList.astro';
+import Projects from '../components/Projects.astro';
+import Making from '../components/Making.astro';
+import Links from '../components/Links.astro';
+import Now from '../components/Now.astro';
+import Footer from '../components/Footer.astro';
+import TerminalCard from '../components/TerminalCard.astro';
+import { getNotes } from '../lib/pds/notes.ts';
+import { getBlogPosts } from '../lib/pds/documents.ts';
+import { getProjects } from '../lib/pds/projects.ts';
+import { links } from '../data/links';
+import { now } from '../data/now';
+
+const [notes, posts, { projects, making }] = await Promise.all([
+  getNotes(),
+  getBlogPosts(),
+  getProjects(),
+]);
+---
+
+<BaseLayout>
+  <Header slot="header" />
+  <main>
+    <Hero>
+      <TerminalCard />
+    </Hero>
+    <Notes {notes} />
+    <BlogList {posts} />
+    <Projects {projects} />
+    <Making {making} />
+    <div
+      class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-[clamp(24px,4vw,42px)] pt-[clamp(48px,7vw,90px)] pb-[clamp(24px,3vw,36px)]"
+    >
+      <Links {links} />
+      <Now rows={now} />
+    </div>
+  </main>
+  <Footer slot="footer" />
+</BaseLayout>

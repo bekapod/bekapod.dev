@@ -1,0 +1,71 @@
+---
+import '../styles/global.css';
+import { THEME_KEY } from '../lib/theme.ts';
+
+import displayFont from '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url';
+import bodyFont from '@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2?url';
+
+interface Props {
+  title?: string;
+  description?: string;
+  width?: number;
+}
+
+const {
+  title = 'bekapod.dev',
+  description = 'Software engineer building delightful things on the web.',
+  width = 1140,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script is:inline define:vars={{ THEME_KEY }}>
+      let stored = null;
+      try {
+        stored = localStorage.getItem(THEME_KEY);
+      } catch {
+        // storage may be unavailable; proceed with stored = null
+      }
+      const theme =
+        stored === 'light' || stored === 'dark'
+          ? stored
+          : matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+    </script>
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body class="relative overflow-x-hidden">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div
+        class="absolute -top-20 -left-[120px] size-[380px] rounded-full bg-pink opacity-[0.11] blur-[70px]"
+      >
+      </div>
+      <div
+        class="absolute top-[420px] -right-[140px] size-[420px] rounded-full bg-purple opacity-10 blur-[80px]"
+      >
+      </div>
+      <div
+        class="absolute top-[1400px] -left-[100px] size-[360px] rounded-full bg-teal opacity-[0.09] blur-[80px]"
+      >
+      </div>
+    </div>
+    <slot name="header" />
+    <div class="mx-auto w-full px-[clamp(16px,4vw,40px)]" style={`max-width:${width}px`}>
+      <slot />
+    </div>
+    <slot name="footer" />
+  </body>
+</html>

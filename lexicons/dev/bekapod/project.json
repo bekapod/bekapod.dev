@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "dev.bekapod.project",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A project or making entry. One collection covers both the Projects and Making sections, distinguished by `type`.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["type", "title"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Discriminates the section: `software` renders under Projects, `knit` and `grow` under Making.",
+            "enum": ["software", "knit", "grow"]
+          },
+          "title": {
+            "type": "string",
+            "description": "Short display name for the tile.",
+            "maxGraphemes": 80,
+            "maxLength": 800
+          },
+          "description": {
+            "type": "string",
+            "description": "One-line summary shown on the tile.",
+            "maxGraphemes": 300,
+            "maxLength": 3000
+          },
+          "status": {
+            "type": "string",
+            "description": "Lifecycle state.",
+            "enum": ["active", "completed", "archived"]
+          },
+          "startedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the work itself began — first commit, cast-on, or planting."
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the work was finished, if it is."
+          },
+          "image": {
+            "type": "blob",
+            "description": "Single cover image.",
+            "accept": ["image/*"],
+            "maxSize": 1000000
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the canonical home of the work (e.g. GitHub or Ravelry)."
+          },
+          "tags": {
+            "type": "array",
+            "description": "Freeform tags, e.g. tech stack.",
+            "maxLength": 10,
+            "items": {
+              "type": "string",
+              "maxGraphemes": 64,
+              "maxLength": 640
+            }
+          }
+        }
+      }
+    }
+  }
+}
