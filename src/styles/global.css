@@ -134,13 +134,23 @@
     color: var(--text);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  body {
     transition:
       background 0.3s,
       color 0.3s;
+  }
+}
+
+/* Global reduced-motion backstop, so components can declare motion freely.
+   Unlayered + !important overrides @layer base and Tailwind utilities
+   (important declarations invert cascade-layer order); the non-zero
+   duration keeps transitionend/animationend listeners firing. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
